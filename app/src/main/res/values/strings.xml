@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ClinicBook</string>
+    <string name="login_title">Sign In</string>
+    <string name="btn_login">Sign In</string>
+    <string name="btn_logout">Logout</string>
+    <string name="hint_email">Email Address</string>
+    <string name="hint_password">Password</string>
+    <string name="label_doctor_dashboard">Doctor Dashboard</string>
+    <string name="label_receptionist_dashboard">Receptionist Panel</string>
+    <string name="label_book_appointment">Book New Appointment</string>
+    <string name="label_all_appointments">All Appointments</string>
+    <string name="label_appointment_queue">Appointment Queue</string>
+    <string name="label_patient_name">Patient Name</string>
+    <string name="label_select_doctor">Select Doctor</string>
+    <string name="label_pick_date">Pick Date</string>
+    <string name="label_pick_time">Pick Time</string>
+    <string name="btn_add_appointment">Add Appointment</string>
+    <string name="btn_mark_done">Done</string>
+    <string name="status_pending">Pending</string>
+    <string name="status_completed">Completed</string>
+    <string name="empty_no_appointments">No Appointments Yet</string>
+
+    <!-- Doctors List -->
+    <string-array name="doctors_list">
+        <item>Select Doctor</item>
+        <item>Dr. Rajesh Sharma</item>
+        <item>Dr. Priya Mehta</item>
+        <item>Dr. Anil Gupta</item>
+        <item>Dr. Sunita Patel</item>
+        <item>Dr. Vikram Singh</item>
+    </string-array>
+</resources>

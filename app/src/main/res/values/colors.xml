@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary_blue">#1565C0</color>
+    <color name="primary_blue_dark">#0D47A1</color>
+    <color name="primary_blue_light">#E3F2FD</color>
+
+    <!-- Accent Colors -->
+    <color name="accent_teal">#00897B</color>
+    <color name="accent_orange">#F57C00</color>
+    <color name="success_green">#2E7D32</color>
+    <color name="error_red">#C62828</color>
+
+    <!-- Background Colors -->
+    <color name="bg_light">#F5F7FA</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#1A1A2E</color>
+    <color name="text_secondary">#6C757D</color>
+
+    <!-- Status Colors -->
+    <color name="status_pending">#F57C00</color>
+    <color name="status_completed">#2E7D32</color>
+
+    <!-- Card -->
+    <color name="card_bg">#FFFFFF</color>
+</resources>

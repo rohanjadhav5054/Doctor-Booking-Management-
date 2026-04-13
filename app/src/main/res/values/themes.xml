@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base App Theme -->
+    <style name="Theme.AppointmentBooking" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryVariant">@color/primary_blue_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/accent_teal</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:windowBackground">@color/bg_light</item>
+        
+    </style>
+
+    <!-- Splash Theme (Fullscreen) -->
+    <style name="Theme.AppointmentBooking.Splash" parent="Theme.AppointmentBooking">
+        <item name="android:windowBackground">@color/primary_blue</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">@color/primary_blue</item>
+    </style>
+
+    <!-- Toolbar Text Appearance -->
+    <style name="TextAppearance.Toolbar" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

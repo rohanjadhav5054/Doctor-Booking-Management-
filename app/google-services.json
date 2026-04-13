@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "810838479332",
+    "project_id": "clinicbook-9e723",
+    "storage_bucket": "clinicbook-9e723.firebasestorage.app",
+    "firebase_url": "https://clinicbook-9e723-default-rtdb.asia-southeast1.firebasedatabase.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810838479332:android:2edf6e49181a083976b7f1",
+        "android_client_info": {
+          "package_name": "com.clinic.appointmentBooking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ4sKYQfUimosgnZnlWRoS8qi69P4Z6Lc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

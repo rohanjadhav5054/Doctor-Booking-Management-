@@ -1,0 +1,19 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "appointments": {
+      ".read": "auth != null",
+      "$appointmentId": {
+        ".write": "auth != null",
+        ".validate": "newData.hasChildren(['patientName', 'doctorName', 'time', 'status'])"
+      }
+    }
+  }
+}

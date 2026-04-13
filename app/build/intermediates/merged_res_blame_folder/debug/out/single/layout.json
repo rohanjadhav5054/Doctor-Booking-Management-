@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.clinic.appointmentbooking.app-mergeDebugResources-46:/layout/activity_login.xml",
+        "source": "com.clinic.appointmentbooking.app-main-49:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.clinic.appointmentbooking.app-mergeDebugResources-46:/layout/item_appointment_receptionist.xml",
+        "source": "com.clinic.appointmentbooking.app-main-49:/layout/item_appointment_receptionist.xml"
+    },
+    {
+        "merged": "com.clinic.appointmentbooking.app-mergeDebugResources-46:/layout/item_appointment_doctor.xml",
+        "source": "com.clinic.appointmentbooking.app-main-49:/layout/item_appointment_doctor.xml"
+    },
+    {
+        "merged": "com.clinic.appointmentbooking.app-mergeDebugResources-46:/layout/activity_doctor_dashboard.xml",
+        "source": "com.clinic.appointmentbooking.app-main-49:/layout/activity_doctor_dashboard.xml"
+    },
+    {
+        "merged": "com.clinic.appointmentbooking.app-mergeDebugResources-46:/layout/activity_receptionist_dashboard.xml",
+        "source": "com.clinic.appointmentbooking.app-main-49:/layout/activity_receptionist_dashboard.xml"
+    },
+    {
+        "merged": "com.clinic.appointmentbooking.app-mergeDebugResources-46:/layout/activity_splash.xml",
+        "source": "com.clinic.appointmentbooking.app-main-49:/layout/activity_splash.xml"
+    }
+]
