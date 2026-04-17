@@ -1,6 +1,7 @@
 package com.clinic.appointmentbooking.repository
 
 import com.clinic.appointmentbooking.model.Appointment
+import com.clinic.appointmentbooking.model.Patient
 import com.clinic.appointmentbooking.model.User
 import com.clinic.appointmentbooking.util.Resource
 import com.google.firebase.auth.FirebaseAuth
@@ -42,6 +43,40 @@ class FirebaseRepository {
     fun getCurrentUser() = auth.currentUser
 
     fun logout() = auth.signOut()
+
+    // ─── Patients ─────────────────────────────────────────────────────────────
+
+    suspend fun addPatient(patient: Patient): Resource<String> {
+        return try {
+            val ref = database.child("patients").push()
+            val patientWithId = patient.copy(id = ref.key ?: "")
+            ref.setValue(patientWithId).await()
+            Resource.Success(patientWithId.id)
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Failed to add patient")
+        }
+    }
+
+    fun getPatientsFlow(): Flow<Resource<List<Patient>>> = callbackFlow {
+        val ref = database.child("patients")
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val list = mutableListOf<Patient>()
+                for (child in snapshot.children) {
+                    val patient = child.getValue(Patient::class.java)
+                    if (patient != null) list.add(patient)
+                }
+                list.sortBy { it.name }
+                trySend(Resource.Success(list))
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                trySend(Resource.Error(error.message))
+            }
+        }
+        ref.addValueEventListener(listener)
+        awaitClose { ref.removeEventListener(listener) }
+    }
 
     // ─── Appointments ─────────────────────────────────────────────────────────
 
@@ -88,6 +123,19 @@ class FirebaseRepository {
             Resource.Success(Unit)
         } catch (e: Exception) {
             Resource.Error(e.message ?: "Failed to update status")
+        }
+    }
+
+    suspend fun updateNextVisitDate(appointmentId: String, nextVisitDate: String): Resource<Unit> {
+        return try {
+            database.child("appointments")
+                .child(appointmentId)
+                .child("nextVisitDate")
+                .setValue(nextVisitDate)
+                .await()
+            Resource.Success(Unit)
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Failed to update next visit date")
         }
     }
 

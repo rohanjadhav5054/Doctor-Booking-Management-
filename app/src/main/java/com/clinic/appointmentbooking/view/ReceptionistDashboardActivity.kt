@@ -1,174 +1,95 @@
 package com.clinic.appointmentbooking.view
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.core.view.GravityCompat
 import com.clinic.appointmentbooking.R
-import com.clinic.appointmentbooking.adapter.ReceptionistAppointmentAdapter
 import com.clinic.appointmentbooking.databinding.ActivityReceptionistDashboardBinding
 import com.clinic.appointmentbooking.util.Resource
 import com.clinic.appointmentbooking.viewmodel.AppointmentViewModel
 import com.clinic.appointmentbooking.viewmodel.AuthViewModel
-import java.util.Calendar
+import com.google.android.material.navigation.NavigationView
 
-class ReceptionistDashboardActivity : AppCompatActivity() {
+class ReceptionistDashboardActivity : AppCompatActivity(),
+    NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityReceptionistDashboardBinding
     private val appointmentViewModel: AppointmentViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
-    private lateinit var appointmentAdapter: ReceptionistAppointmentAdapter
-
-    private var selectedTime = ""
-    private var selectedDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReceptionistDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupDoctorSpinner()
-        setupRecyclerView()
-        setupClickListeners()
+        setSupportActionBar(binding.toolbar)
+
+        // Drawer toggle (hamburger ↔ arrow)
+        val toggle = ActionBarDrawerToggle(
+            this, binding.drawerLayout, binding.toolbar,
+            R.string.nav_open, R.string.nav_close
+        )
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        binding.navigationView.setNavigationItemSelectedListener(this)
+
+        // Quick-action card click listeners
+        setupCardClicks()
+
+        // Live appointment stats
         setupObservers()
         appointmentViewModel.startListeningToAppointments()
     }
 
-    private fun setupDoctorSpinner() {
-        val doctors = resources.getStringArray(R.array.doctors_list)
-        val adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            doctors
-        )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerDoctor.adapter = adapter
-    }
+    // ── Quick-action cards ───────────────────────────────────────────────────
 
-    private fun setupRecyclerView() {
-        appointmentAdapter = ReceptionistAppointmentAdapter()
-        binding.rvAppointments.apply {
-            layoutManager = LinearLayoutManager(this@ReceptionistDashboardActivity)
-            adapter = appointmentAdapter
+    private fun setupCardClicks() {
+        binding.cardAddPatient.setOnClickListener {
+            startActivity(Intent(this, AddPatientActivity::class.java))
+        }
+        binding.cardBookAppointment.setOnClickListener {
+            startActivity(Intent(this, BookAppointmentActivity::class.java))
+        }
+        binding.cardViewAppointments.setOnClickListener {
+            startActivity(Intent(this, ViewAppointmentsActivity::class.java))
         }
     }
 
-    private fun setupClickListeners() {
-        binding.btnSelectTime.setOnClickListener { showTimePicker() }
-        binding.btnSelectDate.setOnClickListener { showDatePicker() }
-        binding.btnSubmit.setOnClickListener { submitAppointment() }
-        binding.btnLogout.setOnClickListener { logout() }
+    // ── Navigation drawer ────────────────────────────────────────────────────
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_dashboard        -> { /* already here */ }
+            R.id.nav_add_patient      -> startActivity(Intent(this, AddPatientActivity::class.java))
+            R.id.nav_book_appointment -> startActivity(Intent(this, BookAppointmentActivity::class.java))
+            R.id.nav_view_appointments-> startActivity(Intent(this, ViewAppointmentsActivity::class.java))
+            R.id.nav_logout           -> logout()
+        }
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 
-    private fun showTimePicker() {
-        val calendar = Calendar.getInstance()
-        TimePickerDialog(
-            this,
-            { _, hourOfDay, minute ->
-                val amPm = if (hourOfDay < 12) "AM" else "PM"
-                val hour = if (hourOfDay % 12 == 0) 12 else hourOfDay % 12
-                selectedTime = String.format("%02d:%02d %s", hour, minute, amPm)
-                binding.tvSelectedTime.text = selectedTime
-                binding.tvSelectedTime.visibility = View.VISIBLE
-            },
-            calendar.get(Calendar.HOUR_OF_DAY),
-            calendar.get(Calendar.MINUTE),
-            false
-        ).show()
-    }
-
-    private fun showDatePicker() {
-        val calendar = Calendar.getInstance()
-        DatePickerDialog(
-            this,
-            { _, year, month, dayOfMonth ->
-                selectedDate = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
-                binding.tvSelectedDate.text = selectedDate
-                binding.tvSelectedDate.visibility = View.VISIBLE
-            },
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        ).show()
-    }
-
-    private fun submitAppointment() {
-        val patientName = binding.etPatientName.text.toString()
-        val doctorName = binding.spinnerDoctor.selectedItem?.toString() ?: ""
-        appointmentViewModel.addAppointment(patientName, doctorName, selectedTime, selectedDate)
-    }
+    // ── Stats ────────────────────────────────────────────────────────────────
 
     private fun setupObservers() {
-        appointmentViewModel.addAppointmentState.observe(this) { resource ->
-            when (resource) {
-                is Resource.Loading -> setFormEnabled(false)
-                is Resource.Success -> {
-                    setFormEnabled(true)
-                    clearForm()
-                    Toast.makeText(this, "Appointment added successfully!", Toast.LENGTH_SHORT).show()
-                    appointmentViewModel.resetAddState()
-                }
-                is Resource.Error -> {
-                    setFormEnabled(true)
-                    Toast.makeText(this, resource.message, Toast.LENGTH_LONG).show()
-                    appointmentViewModel.resetAddState()
-                }
-                null -> setFormEnabled(true)
-            }
-        }
-
         appointmentViewModel.appointments.observe(this) { resource ->
-            when (resource) {
-                is Resource.Loading -> {
-                    binding.progressBarList.visibility = View.VISIBLE
-                    binding.tvEmptyState.visibility = View.GONE
-                }
-                is Resource.Success -> {
-                    binding.progressBarList.visibility = View.GONE
-                    val appointments = resource.data
-                    if (appointments.isEmpty()) {
-                        binding.tvEmptyState.visibility = View.VISIBLE
-                        binding.rvAppointments.visibility = View.GONE
-                    } else {
-                        binding.tvEmptyState.visibility = View.GONE
-                        binding.rvAppointments.visibility = View.VISIBLE
-                        appointmentAdapter.submitList(appointments)
-                    }
-                }
-                is Resource.Error -> {
-                    binding.progressBarList.visibility = View.GONE
-                    Toast.makeText(this, resource.message, Toast.LENGTH_LONG).show()
-                }
-                null -> {}
+            if (resource is Resource.Success) {
+                val all       = resource.data
+                val pending   = all.count { it.status.equals("pending",   ignoreCase = true) }
+                val completed = all.count { it.status.equals("completed", ignoreCase = true) }
+                binding.tvTotalAppointments.text = all.size.toString()
+                binding.tvPendingCount.text      = pending.toString()
+                binding.tvCompletedCount.text    = completed.toString()
             }
         }
     }
 
-    private fun clearForm() {
-        binding.etPatientName.text?.clear()
-        binding.spinnerDoctor.setSelection(0)
-        selectedTime = ""
-        selectedDate = ""
-        binding.tvSelectedTime.visibility = View.GONE
-        binding.tvSelectedDate.visibility = View.GONE
-        binding.tvSelectedTime.text = ""
-        binding.tvSelectedDate.text = ""
-    }
-
-    private fun setFormEnabled(enabled: Boolean) {
-        binding.etPatientName.isEnabled = enabled
-        binding.spinnerDoctor.isEnabled = enabled
-        binding.btnSelectTime.isEnabled = enabled
-        binding.btnSelectDate.isEnabled = enabled
-        binding.btnSubmit.isEnabled = enabled
-        binding.progressBarSubmit.visibility = if (enabled) View.GONE else View.VISIBLE
-    }
+    // ── Logout ───────────────────────────────────────────────────────────────
 
     private fun logout() {
         authViewModel.logout()
@@ -176,5 +97,13 @@ class ReceptionistDashboardActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
+    }
+
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 }

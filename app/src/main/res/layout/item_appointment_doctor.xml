@@ -16,23 +16,30 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Top Row -->
+        <!-- ── Row 1: avatar + patient info + status chip ── -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="12dp">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_patient"
-                android:contentDescription="Patient"
-                android:tint="@color/primary_blue"
-                android:background="@drawable/bg_icon_circle"
-                android:padding="8dp" />
+            <!-- Avatar circle -->
+            <LinearLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_action_circle_blue"
+                android:gravity="center">
 
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_person"
+                    android:tint="@color/primary"
+                    android:contentDescription="Patient" />
+            </LinearLayout>
+
+            <!-- Patient info -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -44,77 +51,135 @@
                     android:id="@+id/tvPatientName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
+                    android:text="Patient Name"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp"
-                    android:text="Patient Name" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/tvDoctor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
+                    android:text="Dr. Doctor Name"
                     android:textColor="@color/text_secondary"
-                    android:textSize="13sp"
-                    android:text="Dr. Doctor Name" />
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:id="@+id/tvPatientPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📞 —"
+                    android:textColor="@color/secondary"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone" />
             </LinearLayout>
 
+            <!-- Status chip -->
             <TextView
                 android:id="@+id/tvStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="5dp"
                 android:text="Pending"
-                android:textColor="@color/white"
                 android:textSize="11sp" />
         </LinearLayout>
 
-        <!-- Divider -->
+        <!-- ── Divider ─────────────────────────────────── -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#F0F0F0"
-            android:layout_marginBottom="10dp" />
+            android:background="@color/divider"
+            android:layout_marginBottom="12dp" />
 
-        <!-- Bottom Row -->
+        <!-- ── Row 2: date/time ────────────────────────── -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
 
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_time"
-                android:contentDescription="Time"
-                android:tint="@color/text_secondary" />
+                android:tint="@color/text_hint"
+                android:contentDescription="Time" />
 
             <TextView
                 android:id="@+id/tvTime"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="6dp"
-                
+                android:text="— • —"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp"
-                android:text="12:00 PM" />
+                android:layout_marginStart="6dp" />
+        </LinearLayout>
 
+        <!-- ── Row 3: Next Visit (conditional) ────────── -->
+        <LinearLayout
+            android:id="@+id/layoutNextVisit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_calendar"
+                android:tint="@color/success"
+                android:contentDescription="Next visit" />
+
+            <TextView
+                android:id="@+id/tvNextVisit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next Visit: —"
+                android:textColor="@color/success"
+                android:textSize="12sp"
+                android:layout_marginStart="6dp" />
+        </LinearLayout>
+
+        <!-- ── Row 4: Action buttons ───────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <!-- Outlined: Set Next Visit (only for completed) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSetNextVisit"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_marginEnd="8dp"
+                android:text="Next Visit"
+                android:textSize="12sp"
+                android:textColor="@color/primary"
+                app:strokeColor="@color/primary"
+                app:cornerRadius="10dp"
+                android:visibility="gone" />
+
+            <!-- Filled: Mark Done -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnMarkCompleted"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                
-                android:text="Done"
+                android:layout_height="38dp"
+                android:text="Mark Done"
                 android:textSize="12sp"
                 android:textColor="@color/white"
-                app:backgroundTint="@color/success_green"
-                app:cornerRadius="8dp"
+                app:backgroundTint="@color/success"
+                app:cornerRadius="10dp"
                 app:icon="@drawable/ic_check"
-                app:iconSize="14dp" />
+                app:iconSize="14dp"
+                app:iconTint="@color/white" />
         </LinearLayout>
 
     </LinearLayout>

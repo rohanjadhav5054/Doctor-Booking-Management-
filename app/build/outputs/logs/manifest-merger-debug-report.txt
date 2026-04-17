@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-41:12
-INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-41:12
-INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-41:12
-INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-41:12
+ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-55:12
+INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-55:12
+INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-55:12
+INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-55:12
 MERGED from [androidx.databinding:viewbinding:9.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/931922bb407b97b9c4e70ad9e4ce1748/transformed/jetified-viewbinding-9.1.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.11.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f976aa120ee886cc9d313856e04c447/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/rohan/.gradle/caches/9.3.1/transforms/60480f6d9167eaea8d977f4e1e6385ad/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
@@ -25,10 +25,12 @@ MERGED from [com.google.firebase:firebase-common:20.4.2] /Users/rohan/.gradle/ca
 MERGED from [com.google.android.gms:play-services-measurement:21.5.1] /Users/rohan/.gradle/caches/9.3.1/transforms/158d5f92aecf0f2ad84d3da9035677df/transformed/jetified-play-services-measurement-21.5.1/AndroidManifest.xml:17:1-46:12
 MERGED from [com.google.android.gms:play-services-measurement-sdk:21.5.1] /Users/rohan/.gradle/caches/9.3.1/transforms/f532bedb6b0f05c2d1a1e0173302f808/transformed/jetified-play-services-measurement-sdk-21.5.1/AndroidManifest.xml:17:1-25:12
 MERGED from [androidx.activity:activity:1.8.2] /Users/rohan/.gradle/caches/9.3.1/transforms/6951fab82c18d417a0a1d6d0b8229bb0/transformed/jetified-activity-1.8.2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.2.0] /Users/rohan/.gradle/caches/9.3.1/transforms/8e3a06c9ef64b044379ff35b8adba4bd/transformed/drawerlayout-1.2.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /Users/rohan/.gradle/caches/9.3.1/transforms/95cfd3a8760b6e69955be8208c65fd6d/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/rohan/.gradle/caches/9.3.1/transforms/b0ec3f9c40eec87807ea88e5fb5aaad1/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:17:1-35:12
-MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/rohan/.gradle/caches/9.3.1/transforms/704f98703b2e53734d60cbd0c1b50fad/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/5138d1d47380e72bb3f370dea77b7847/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/e157195e338bd0e748e80b77de923cb9/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f59725c9059b6f7335dcb3984ddda65/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/19c2c360989463887ce470e212ea97b0/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.transition:transition:1.2.0] /Users/rohan/.gradle/caches/9.3.1/transforms/a9b5a5fef1da083e33db46f4a4b950bf/transformed/transition-1.2.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/b58e8d5a3d77e0af6b8405d13253b7a7/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
@@ -37,8 +39,6 @@ MERGED from [com.google.android.gms:play-services-measurement-impl:21.5.1] /User
 MERGED from [com.google.android.gms:play-services-stats:17.0.2] /Users/rohan/.gradle/caches/9.3.1/transforms/49990e7e952b45105d28afcefe3659a6/transformed/jetified-play-services-stats-17.0.2/AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/7080048dbba0c520ce6b91b7c1e56f6f/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/df72e63f6616ac1f6288e8c2c8b548fa/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/e157195e338bd0e748e80b77de923cb9/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.customview:customview:1.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f59725c9059b6f7335dcb3984ddda65/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/6ec8448ec4d8776902b63ef24eab23ac/transformed/jetified-firebase-appcheck-interop-17.1.0/AndroidManifest.xml:15:1-23:12
 MERGED from [com.google.firebase:firebase-database-collection:18.0.1] /Users/rohan/.gradle/caches/9.3.1/transforms/305998f27e90684e0c801af3d8121502/transformed/jetified-firebase-database-collection-18.0.1/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-auth-api-phone:17.4.0] /Users/rohan/.gradle/caches/9.3.1/transforms/67a16729da944f6161786d94ce841960/transformed/jetified-play-services-auth-api-phone-17.4.0/AndroidManifest.xml:2:1-7:12
@@ -135,8 +135,8 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:21.5.1] /U
 	android:name
 		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:5:22-76
 application
-ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:7:5-39:19
-INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:7:5-39:19
+ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:7:5-53:19
+INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:7:5-53:19
 MERGED from [com.google.android.material:material:1.11.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f976aa120ee886cc9d313856e04c447/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f976aa120ee886cc9d313856e04c447/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/rohan/.gradle/caches/9.3.1/transforms/60480f6d9167eaea8d977f4e1e6385ad/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -257,6 +257,28 @@ ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/ma
 		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:37:13-37
 	android:name
 		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:36:13-57
+activity#com.clinic.appointmentbooking.view.AddPatientActivity
+ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:39:9-42:58
+	android:windowSoftInputMode
+		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:42:13-55
+	android:exported
+		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:41:13-37
+	android:name
+		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:40:13-52
+activity#com.clinic.appointmentbooking.view.BookAppointmentActivity
+ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:44:9-47:58
+	android:windowSoftInputMode
+		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:47:13-55
+	android:exported
+		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:46:13-37
+	android:name
+		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:45:13-57
+activity#com.clinic.appointmentbooking.view.ViewAppointmentsActivity
+ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:49:9-51:40
+	android:exported
+		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:51:13-37
+	android:name
+		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:50:13-58
 uses-sdk
 INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml
@@ -303,14 +325,18 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk:21.5.1] /Users
 MERGED from [com.google.android.gms:play-services-measurement-sdk:21.5.1] /Users/rohan/.gradle/caches/9.3.1/transforms/f532bedb6b0f05c2d1a1e0173302f808/transformed/jetified-play-services-measurement-sdk-21.5.1/AndroidManifest.xml:20:5-44
 MERGED from [androidx.activity:activity:1.8.2] /Users/rohan/.gradle/caches/9.3.1/transforms/6951fab82c18d417a0a1d6d0b8229bb0/transformed/jetified-activity-1.8.2/AndroidManifest.xml:20:5-44
 MERGED from [androidx.activity:activity:1.8.2] /Users/rohan/.gradle/caches/9.3.1/transforms/6951fab82c18d417a0a1d6d0b8229bb0/transformed/jetified-activity-1.8.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.2.0] /Users/rohan/.gradle/caches/9.3.1/transforms/8e3a06c9ef64b044379ff35b8adba4bd/transformed/drawerlayout-1.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.2.0] /Users/rohan/.gradle/caches/9.3.1/transforms/8e3a06c9ef64b044379ff35b8adba4bd/transformed/drawerlayout-1.2.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /Users/rohan/.gradle/caches/9.3.1/transforms/95cfd3a8760b6e69955be8208c65fd6d/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /Users/rohan/.gradle/caches/9.3.1/transforms/95cfd3a8760b6e69955be8208c65fd6d/transformed/jetified-emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/rohan/.gradle/caches/9.3.1/transforms/b0ec3f9c40eec87807ea88e5fb5aaad1/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:21:5-44
 MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/rohan/.gradle/caches/9.3.1/transforms/b0ec3f9c40eec87807ea88e5fb5aaad1/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:21:5-44
-MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/rohan/.gradle/caches/9.3.1/transforms/704f98703b2e53734d60cbd0c1b50fad/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/rohan/.gradle/caches/9.3.1/transforms/704f98703b2e53734d60cbd0c1b50fad/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/5138d1d47380e72bb3f370dea77b7847/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/5138d1d47380e72bb3f370dea77b7847/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/e157195e338bd0e748e80b77de923cb9/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/e157195e338bd0e748e80b77de923cb9/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f59725c9059b6f7335dcb3984ddda65/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f59725c9059b6f7335dcb3984ddda65/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/19c2c360989463887ce470e212ea97b0/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/19c2c360989463887ce470e212ea97b0/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.transition:transition:1.2.0] /Users/rohan/.gradle/caches/9.3.1/transforms/a9b5a5fef1da083e33db46f4a4b950bf/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
@@ -327,10 +353,6 @@ MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/rohan/.grad
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/7080048dbba0c520ce6b91b7c1e56f6f/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/df72e63f6616ac1f6288e8c2c8b548fa/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/df72e63f6616ac1f6288e8c2c8b548fa/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/e157195e338bd0e748e80b77de923cb9/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/rohan/.gradle/caches/9.3.1/transforms/e157195e338bd0e748e80b77de923cb9/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.customview:customview:1.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f59725c9059b6f7335dcb3984ddda65/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.customview:customview:1.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f59725c9059b6f7335dcb3984ddda65/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/6ec8448ec4d8776902b63ef24eab23ac/transformed/jetified-firebase-appcheck-interop-17.1.0/AndroidManifest.xml:18:5-44
 MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/6ec8448ec4d8776902b63ef24eab23ac/transformed/jetified-firebase-appcheck-interop-17.1.0/AndroidManifest.xml:18:5-44
 MERGED from [com.google.firebase:firebase-database-collection:18.0.1] /Users/rohan/.gradle/caches/9.3.1/transforms/305998f27e90684e0c801af3d8121502/transformed/jetified-firebase-database-collection-18.0.1/AndroidManifest.xml:5:5-7:41

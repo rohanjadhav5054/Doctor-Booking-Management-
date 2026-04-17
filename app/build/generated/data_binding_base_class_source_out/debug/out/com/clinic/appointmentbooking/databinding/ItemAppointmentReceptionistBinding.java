@@ -4,6 +4,7 @@ package com.clinic.appointmentbooking.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.clinic.appointmentbooking.R;
+import com.google.android.material.button.MaterialButton;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -20,10 +22,19 @@ public final class ItemAppointmentReceptionistBinding implements ViewBinding {
   private final CardView rootView;
 
   @NonNull
+  public final MaterialButton btnRebook;
+
+  @NonNull
+  public final LinearLayout layoutNextVisitRow;
+
+  @NonNull
   public final TextView tvDateTime;
 
   @NonNull
   public final TextView tvDoctor;
+
+  @NonNull
+  public final TextView tvNextVisit;
 
   @NonNull
   public final TextView tvPatientName;
@@ -32,11 +43,15 @@ public final class ItemAppointmentReceptionistBinding implements ViewBinding {
   public final TextView tvStatus;
 
   private ItemAppointmentReceptionistBinding(@NonNull CardView rootView,
-      @NonNull TextView tvDateTime, @NonNull TextView tvDoctor, @NonNull TextView tvPatientName,
-      @NonNull TextView tvStatus) {
+      @NonNull MaterialButton btnRebook, @NonNull LinearLayout layoutNextVisitRow,
+      @NonNull TextView tvDateTime, @NonNull TextView tvDoctor, @NonNull TextView tvNextVisit,
+      @NonNull TextView tvPatientName, @NonNull TextView tvStatus) {
     this.rootView = rootView;
+    this.btnRebook = btnRebook;
+    this.layoutNextVisitRow = layoutNextVisitRow;
     this.tvDateTime = tvDateTime;
     this.tvDoctor = tvDoctor;
+    this.tvNextVisit = tvNextVisit;
     this.tvPatientName = tvPatientName;
     this.tvStatus = tvStatus;
   }
@@ -68,6 +83,18 @@ public final class ItemAppointmentReceptionistBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.btnRebook;
+      MaterialButton btnRebook = ViewBindings.findChildViewById(rootView, id);
+      if (btnRebook == null) {
+        break missingId;
+      }
+
+      id = R.id.layoutNextVisitRow;
+      LinearLayout layoutNextVisitRow = ViewBindings.findChildViewById(rootView, id);
+      if (layoutNextVisitRow == null) {
+        break missingId;
+      }
+
       id = R.id.tvDateTime;
       TextView tvDateTime = ViewBindings.findChildViewById(rootView, id);
       if (tvDateTime == null) {
@@ -77,6 +104,12 @@ public final class ItemAppointmentReceptionistBinding implements ViewBinding {
       id = R.id.tvDoctor;
       TextView tvDoctor = ViewBindings.findChildViewById(rootView, id);
       if (tvDoctor == null) {
+        break missingId;
+      }
+
+      id = R.id.tvNextVisit;
+      TextView tvNextVisit = ViewBindings.findChildViewById(rootView, id);
+      if (tvNextVisit == null) {
         break missingId;
       }
 
@@ -92,8 +125,8 @@ public final class ItemAppointmentReceptionistBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemAppointmentReceptionistBinding((CardView) rootView, tvDateTime, tvDoctor,
-          tvPatientName, tvStatus);
+      return new ItemAppointmentReceptionistBinding((CardView) rootView, btnRebook,
+          layoutNextVisitRow, tvDateTime, tvDoctor, tvNextVisit, tvPatientName, tvStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

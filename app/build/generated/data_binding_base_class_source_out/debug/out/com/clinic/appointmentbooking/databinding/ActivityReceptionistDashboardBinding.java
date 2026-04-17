@@ -4,87 +4,77 @@ package com.clinic.appointmentbooking.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.clinic.appointmentbooking.R;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ActivityReceptionistDashboardBinding implements ViewBinding {
   @NonNull
-  private final ScrollView rootView;
+  private final DrawerLayout rootView;
 
   @NonNull
-  public final MaterialButton btnLogout;
+  public final AppBarLayout appBarLayout;
 
   @NonNull
-  public final MaterialButton btnSelectDate;
+  public final CardView cardAddPatient;
 
   @NonNull
-  public final MaterialButton btnSelectTime;
+  public final CardView cardBookAppointment;
 
   @NonNull
-  public final MaterialButton btnSubmit;
+  public final CardView cardViewAppointments;
 
   @NonNull
-  public final TextInputEditText etPatientName;
+  public final DrawerLayout drawerLayout;
 
   @NonNull
-  public final ProgressBar progressBarList;
+  public final NavigationView navigationView;
 
   @NonNull
-  public final ProgressBar progressBarSubmit;
+  public final MaterialToolbar toolbar;
 
   @NonNull
-  public final RecyclerView rvAppointments;
+  public final TextView tvCompletedCount;
 
   @NonNull
-  public final Spinner spinnerDoctor;
+  public final TextView tvPendingCount;
 
   @NonNull
-  public final TextView tvEmptyState;
+  public final TextView tvTotalAppointments;
 
-  @NonNull
-  public final TextView tvSelectedDate;
-
-  @NonNull
-  public final TextView tvSelectedTime;
-
-  private ActivityReceptionistDashboardBinding(@NonNull ScrollView rootView,
-      @NonNull MaterialButton btnLogout, @NonNull MaterialButton btnSelectDate,
-      @NonNull MaterialButton btnSelectTime, @NonNull MaterialButton btnSubmit,
-      @NonNull TextInputEditText etPatientName, @NonNull ProgressBar progressBarList,
-      @NonNull ProgressBar progressBarSubmit, @NonNull RecyclerView rvAppointments,
-      @NonNull Spinner spinnerDoctor, @NonNull TextView tvEmptyState,
-      @NonNull TextView tvSelectedDate, @NonNull TextView tvSelectedTime) {
+  private ActivityReceptionistDashboardBinding(@NonNull DrawerLayout rootView,
+      @NonNull AppBarLayout appBarLayout, @NonNull CardView cardAddPatient,
+      @NonNull CardView cardBookAppointment, @NonNull CardView cardViewAppointments,
+      @NonNull DrawerLayout drawerLayout, @NonNull NavigationView navigationView,
+      @NonNull MaterialToolbar toolbar, @NonNull TextView tvCompletedCount,
+      @NonNull TextView tvPendingCount, @NonNull TextView tvTotalAppointments) {
     this.rootView = rootView;
-    this.btnLogout = btnLogout;
-    this.btnSelectDate = btnSelectDate;
-    this.btnSelectTime = btnSelectTime;
-    this.btnSubmit = btnSubmit;
-    this.etPatientName = etPatientName;
-    this.progressBarList = progressBarList;
-    this.progressBarSubmit = progressBarSubmit;
-    this.rvAppointments = rvAppointments;
-    this.spinnerDoctor = spinnerDoctor;
-    this.tvEmptyState = tvEmptyState;
-    this.tvSelectedDate = tvSelectedDate;
-    this.tvSelectedTime = tvSelectedTime;
+    this.appBarLayout = appBarLayout;
+    this.cardAddPatient = cardAddPatient;
+    this.cardBookAppointment = cardBookAppointment;
+    this.cardViewAppointments = cardViewAppointments;
+    this.drawerLayout = drawerLayout;
+    this.navigationView = navigationView;
+    this.toolbar = toolbar;
+    this.tvCompletedCount = tvCompletedCount;
+    this.tvPendingCount = tvPendingCount;
+    this.tvTotalAppointments = tvTotalAppointments;
   }
 
   @Override
   @NonNull
-  public ScrollView getRoot() {
+  public DrawerLayout getRoot() {
     return rootView;
   }
 
@@ -109,82 +99,65 @@ public final class ActivityReceptionistDashboardBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btnLogout;
-      MaterialButton btnLogout = ViewBindings.findChildViewById(rootView, id);
-      if (btnLogout == null) {
+      id = R.id.appBarLayout;
+      AppBarLayout appBarLayout = ViewBindings.findChildViewById(rootView, id);
+      if (appBarLayout == null) {
         break missingId;
       }
 
-      id = R.id.btnSelectDate;
-      MaterialButton btnSelectDate = ViewBindings.findChildViewById(rootView, id);
-      if (btnSelectDate == null) {
+      id = R.id.cardAddPatient;
+      CardView cardAddPatient = ViewBindings.findChildViewById(rootView, id);
+      if (cardAddPatient == null) {
         break missingId;
       }
 
-      id = R.id.btnSelectTime;
-      MaterialButton btnSelectTime = ViewBindings.findChildViewById(rootView, id);
-      if (btnSelectTime == null) {
+      id = R.id.cardBookAppointment;
+      CardView cardBookAppointment = ViewBindings.findChildViewById(rootView, id);
+      if (cardBookAppointment == null) {
         break missingId;
       }
 
-      id = R.id.btnSubmit;
-      MaterialButton btnSubmit = ViewBindings.findChildViewById(rootView, id);
-      if (btnSubmit == null) {
+      id = R.id.cardViewAppointments;
+      CardView cardViewAppointments = ViewBindings.findChildViewById(rootView, id);
+      if (cardViewAppointments == null) {
         break missingId;
       }
 
-      id = R.id.etPatientName;
-      TextInputEditText etPatientName = ViewBindings.findChildViewById(rootView, id);
-      if (etPatientName == null) {
+      DrawerLayout drawerLayout = (DrawerLayout) rootView;
+
+      id = R.id.navigationView;
+      NavigationView navigationView = ViewBindings.findChildViewById(rootView, id);
+      if (navigationView == null) {
         break missingId;
       }
 
-      id = R.id.progressBarList;
-      ProgressBar progressBarList = ViewBindings.findChildViewById(rootView, id);
-      if (progressBarList == null) {
+      id = R.id.toolbar;
+      MaterialToolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
         break missingId;
       }
 
-      id = R.id.progressBarSubmit;
-      ProgressBar progressBarSubmit = ViewBindings.findChildViewById(rootView, id);
-      if (progressBarSubmit == null) {
+      id = R.id.tvCompletedCount;
+      TextView tvCompletedCount = ViewBindings.findChildViewById(rootView, id);
+      if (tvCompletedCount == null) {
         break missingId;
       }
 
-      id = R.id.rvAppointments;
-      RecyclerView rvAppointments = ViewBindings.findChildViewById(rootView, id);
-      if (rvAppointments == null) {
+      id = R.id.tvPendingCount;
+      TextView tvPendingCount = ViewBindings.findChildViewById(rootView, id);
+      if (tvPendingCount == null) {
         break missingId;
       }
 
-      id = R.id.spinnerDoctor;
-      Spinner spinnerDoctor = ViewBindings.findChildViewById(rootView, id);
-      if (spinnerDoctor == null) {
+      id = R.id.tvTotalAppointments;
+      TextView tvTotalAppointments = ViewBindings.findChildViewById(rootView, id);
+      if (tvTotalAppointments == null) {
         break missingId;
       }
 
-      id = R.id.tvEmptyState;
-      TextView tvEmptyState = ViewBindings.findChildViewById(rootView, id);
-      if (tvEmptyState == null) {
-        break missingId;
-      }
-
-      id = R.id.tvSelectedDate;
-      TextView tvSelectedDate = ViewBindings.findChildViewById(rootView, id);
-      if (tvSelectedDate == null) {
-        break missingId;
-      }
-
-      id = R.id.tvSelectedTime;
-      TextView tvSelectedTime = ViewBindings.findChildViewById(rootView, id);
-      if (tvSelectedTime == null) {
-        break missingId;
-      }
-
-      return new ActivityReceptionistDashboardBinding((ScrollView) rootView, btnLogout,
-          btnSelectDate, btnSelectTime, btnSubmit, etPatientName, progressBarList,
-          progressBarSubmit, rvAppointments, spinnerDoctor, tvEmptyState, tvSelectedDate,
-          tvSelectedTime);
+      return new ActivityReceptionistDashboardBinding((DrawerLayout) rootView, appBarLayout,
+          cardAddPatient, cardBookAppointment, cardViewAppointments, drawerLayout, navigationView,
+          toolbar, tvCompletedCount, tvPendingCount, tvTotalAppointments);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

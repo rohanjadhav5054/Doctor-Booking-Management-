@@ -4,8 +4,10 @@ package com.clinic.appointmentbooking.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -13,6 +15,7 @@ import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.clinic.appointmentbooking.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -26,7 +29,10 @@ public final class ActivityLoginBinding implements ViewBinding {
   public final MaterialButton btnLogin;
 
   @NonNull
-  public final CardView cardHeader;
+  public final MaterialButton btnRoleDoctor;
+
+  @NonNull
+  public final MaterialButton btnRoleReceptionist;
 
   @NonNull
   public final CardView cardLogin;
@@ -38,18 +44,34 @@ public final class ActivityLoginBinding implements ViewBinding {
   public final TextInputEditText etPassword;
 
   @NonNull
+  public final LinearLayout layoutBrand;
+
+  @NonNull
   public final ProgressBar progressBar;
 
+  @NonNull
+  public final MaterialButtonToggleGroup toggleRoleGroup;
+
+  @NonNull
+  public final TextView tvSelectedRole;
+
   private ActivityLoginBinding(@NonNull ScrollView rootView, @NonNull MaterialButton btnLogin,
-      @NonNull CardView cardHeader, @NonNull CardView cardLogin, @NonNull TextInputEditText etEmail,
-      @NonNull TextInputEditText etPassword, @NonNull ProgressBar progressBar) {
+      @NonNull MaterialButton btnRoleDoctor, @NonNull MaterialButton btnRoleReceptionist,
+      @NonNull CardView cardLogin, @NonNull TextInputEditText etEmail,
+      @NonNull TextInputEditText etPassword, @NonNull LinearLayout layoutBrand,
+      @NonNull ProgressBar progressBar, @NonNull MaterialButtonToggleGroup toggleRoleGroup,
+      @NonNull TextView tvSelectedRole) {
     this.rootView = rootView;
     this.btnLogin = btnLogin;
-    this.cardHeader = cardHeader;
+    this.btnRoleDoctor = btnRoleDoctor;
+    this.btnRoleReceptionist = btnRoleReceptionist;
     this.cardLogin = cardLogin;
     this.etEmail = etEmail;
     this.etPassword = etPassword;
+    this.layoutBrand = layoutBrand;
     this.progressBar = progressBar;
+    this.toggleRoleGroup = toggleRoleGroup;
+    this.tvSelectedRole = tvSelectedRole;
   }
 
   @Override
@@ -85,9 +107,15 @@ public final class ActivityLoginBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.cardHeader;
-      CardView cardHeader = ViewBindings.findChildViewById(rootView, id);
-      if (cardHeader == null) {
+      id = R.id.btnRoleDoctor;
+      MaterialButton btnRoleDoctor = ViewBindings.findChildViewById(rootView, id);
+      if (btnRoleDoctor == null) {
+        break missingId;
+      }
+
+      id = R.id.btnRoleReceptionist;
+      MaterialButton btnRoleReceptionist = ViewBindings.findChildViewById(rootView, id);
+      if (btnRoleReceptionist == null) {
         break missingId;
       }
 
@@ -109,14 +137,33 @@ public final class ActivityLoginBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.layoutBrand;
+      LinearLayout layoutBrand = ViewBindings.findChildViewById(rootView, id);
+      if (layoutBrand == null) {
+        break missingId;
+      }
+
       id = R.id.progressBar;
       ProgressBar progressBar = ViewBindings.findChildViewById(rootView, id);
       if (progressBar == null) {
         break missingId;
       }
 
-      return new ActivityLoginBinding((ScrollView) rootView, btnLogin, cardHeader, cardLogin,
-          etEmail, etPassword, progressBar);
+      id = R.id.toggleRoleGroup;
+      MaterialButtonToggleGroup toggleRoleGroup = ViewBindings.findChildViewById(rootView, id);
+      if (toggleRoleGroup == null) {
+        break missingId;
+      }
+
+      id = R.id.tvSelectedRole;
+      TextView tvSelectedRole = ViewBindings.findChildViewById(rootView, id);
+      if (tvSelectedRole == null) {
+        break missingId;
+      }
+
+      return new ActivityLoginBinding((ScrollView) rootView, btnLogin, btnRoleDoctor,
+          btnRoleReceptionist, cardLogin, etEmail, etPassword, layoutBrand, progressBar,
+          toggleRoleGroup, tvSelectedRole);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

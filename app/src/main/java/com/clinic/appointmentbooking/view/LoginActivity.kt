@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.clinic.appointmentbooking.R
 import com.clinic.appointmentbooking.databinding.ActivityLoginBinding
 import com.clinic.appointmentbooking.util.Resource
 import com.clinic.appointmentbooking.viewmodel.AuthViewModel
@@ -15,14 +16,16 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val authViewModel: AuthViewModel by viewModels()
 
+    // Track locally selected role (for UX validation)
+    private var localSelectedRole: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Check if user is already logged in
         checkExistingSession()
-
+        setupRoleToggle()
         setupObservers()
         setupClickListeners()
     }
@@ -35,10 +38,33 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupRoleToggle() {
+        binding.toggleRoleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                localSelectedRole = when (checkedId) {
+                    R.id.btnRoleDoctor -> "doctor"
+                    R.id.btnRoleReceptionist -> "receptionist"
+                    else -> ""
+                }
+                val label = if (localSelectedRole == "doctor")
+                    "👨‍⚕️ Signing in as Doctor"
+                else
+                    "🖥️ Signing in as Receptionist"
+                binding.tvSelectedRole.text = label
+                binding.tvSelectedRole.visibility = View.VISIBLE
+            }
+        }
+    }
+
     private fun setupClickListeners() {
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
+
+            if (email.isBlank() || password.isBlank()) {
+                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             authViewModel.login(email, password)
         }
     }
@@ -48,7 +74,6 @@ class LoginActivity : AppCompatActivity() {
             when (resource) {
                 is Resource.Loading -> showLoading(true)
                 is Resource.Success -> {
-                    // Login succeeded, now fetch role
                     authViewModel.fetchUserRole(resource.data)
                 }
                 is Resource.Error -> {
@@ -64,7 +89,19 @@ class LoginActivity : AppCompatActivity() {
                 is Resource.Loading -> showLoading(true)
                 is Resource.Success -> {
                     showLoading(false)
-                    navigateByRole(resource.data)
+                    val roleFromDb = resource.data
+                    // If user selected a role locally, validate it matches; else just navigate
+                    if (localSelectedRole.isNotEmpty() &&
+                        roleFromDb.lowercase() != localSelectedRole.lowercase()) {
+                        Toast.makeText(
+                            this,
+                            "Access denied. You are registered as: ${roleFromDb.replaceFirstChar { it.uppercase() }}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        authViewModel.logout()
+                        return@observe
+                    }
+                    navigateByRole(roleFromDb)
                 }
                 is Resource.Error -> {
                     showLoading(false)
@@ -94,5 +131,6 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.isEnabled = !show
         binding.etEmail.isEnabled = !show
         binding.etPassword.isEnabled = !show
+        binding.toggleRoleGroup.isEnabled = !show
     }
 }

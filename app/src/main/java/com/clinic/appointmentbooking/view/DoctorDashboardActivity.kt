@@ -1,18 +1,23 @@
 package com.clinic.appointmentbooking.view
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.clinic.appointmentbooking.R
 import com.clinic.appointmentbooking.adapter.DoctorAppointmentAdapter
 import com.clinic.appointmentbooking.databinding.ActivityDoctorDashboardBinding
 import com.clinic.appointmentbooking.model.Appointment
 import com.clinic.appointmentbooking.util.Resource
 import com.clinic.appointmentbooking.viewmodel.AppointmentViewModel
 import com.clinic.appointmentbooking.viewmodel.AuthViewModel
+import java.util.Calendar
 
 class DoctorDashboardActivity : AppCompatActivity() {
 
@@ -26,25 +31,48 @@ class DoctorDashboardActivity : AppCompatActivity() {
         binding = ActivityDoctorDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+
         setupRecyclerView()
         setupObservers()
-        setupClickListeners()
         appointmentViewModel.startListeningToAppointments()
     }
 
-    private fun setupRecyclerView() {
-        appointmentAdapter = DoctorAppointmentAdapter { appointment ->
-            markAsCompleted(appointment)
-        }
-        binding.rvAppointments.apply {
-            layoutManager = LinearLayoutManager(this@DoctorDashboardActivity)
-            adapter = appointmentAdapter
+    // ── Toolbar logout menu ──────────────────────────────────────────────────
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_doctor_toolbar, menu)
+        // Tint the icon white
+        menu.findItem(R.id.action_logout)?.icon?.setTint(getColor(R.color.white))
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_logout -> {
+                logout()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun setupClickListeners() {
-        binding.btnLogout.setOnClickListener { logout() }
+    // ── RecyclerView ─────────────────────────────────────────────────────────
+
+    private fun setupRecyclerView() {
+        appointmentAdapter = DoctorAppointmentAdapter(
+            onMarkCompleted = { appointment -> markAsCompleted(appointment) },
+            onSetNextVisit  = { appointment -> showNextVisitPicker(appointment) }
+        )
+        binding.rvAppointments.apply {
+            layoutManager = LinearLayoutManager(this@DoctorDashboardActivity)
+            adapter = appointmentAdapter
+            // NestedScrollView handles scroll; disable inner scrolling
+            isNestedScrollingEnabled = false
+        }
     }
+
+    // ── Actions ──────────────────────────────────────────────────────────────
 
     private fun markAsCompleted(appointment: Appointment) {
         if (appointment.id.isBlank()) {
@@ -53,6 +81,24 @@ class DoctorDashboardActivity : AppCompatActivity() {
         }
         appointmentViewModel.updateAppointmentStatus(appointment.id, "completed")
     }
+
+    private fun showNextVisitPicker(appointment: Appointment) {
+        val calendar = Calendar.getInstance()
+        DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                val nextVisit = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
+                appointmentViewModel.updateNextVisitDate(appointment.id, nextVisit)
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).apply {
+            datePicker.minDate = System.currentTimeMillis() - 1000
+        }.show()
+    }
+
+    // ── Observers ────────────────────────────────────────────────────────────
 
     private fun setupObservers() {
         appointmentViewModel.appointments.observe(this) { resource ->
@@ -63,14 +109,14 @@ class DoctorDashboardActivity : AppCompatActivity() {
                 }
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    val appointments = resource.data
-                    if (appointments.isEmpty()) {
+                    val list = resource.data
+                    if (list.isEmpty()) {
                         binding.tvEmptyState.visibility = View.VISIBLE
                         binding.rvAppointments.visibility = View.GONE
                     } else {
                         binding.tvEmptyState.visibility = View.GONE
                         binding.rvAppointments.visibility = View.VISIBLE
-                        appointmentAdapter.submitList(appointments)
+                        appointmentAdapter.submitList(list)
                     }
                 }
                 is Resource.Error -> {
@@ -81,10 +127,18 @@ class DoctorDashboardActivity : AppCompatActivity() {
             }
         }
 
+        appointmentViewModel.todayCount.observe(this) { count ->
+            binding.tvTodayCount.text = count.toString()
+        }
+
+        appointmentViewModel.monthlyCount.observe(this) { count ->
+            binding.tvMonthlyCount.text = count.toString()
+        }
+
         appointmentViewModel.updateStatusState.observe(this) { resource ->
             when (resource) {
                 is Resource.Success -> {
-                    Toast.makeText(this, "Appointment marked as completed!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "✅ Appointment marked as done!", Toast.LENGTH_SHORT).show()
                     appointmentViewModel.resetUpdateState()
                 }
                 is Resource.Error -> {
@@ -94,7 +148,23 @@ class DoctorDashboardActivity : AppCompatActivity() {
                 else -> {}
             }
         }
+
+        appointmentViewModel.updateNextVisitState.observe(this) { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    Toast.makeText(this, "📅 Next visit date saved!", Toast.LENGTH_SHORT).show()
+                    appointmentViewModel.resetNextVisitState()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(this, resource.message, Toast.LENGTH_LONG).show()
+                    appointmentViewModel.resetNextVisitState()
+                }
+                else -> {}
+            }
+        }
     }
+
+    // ── Logout ───────────────────────────────────────────────────────────────
 
     private fun logout() {
         authViewModel.logout()

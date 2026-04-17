@@ -36,6 +36,20 @@
             android:name=".view.DoctorDashboardActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".view.AddPatientActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".view.BookAppointmentActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".view.ViewAppointmentsActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

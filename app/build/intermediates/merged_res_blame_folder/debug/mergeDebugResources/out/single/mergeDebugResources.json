@@ -16,6 +16,10 @@
         "source": "com.clinic.appointmentbooking.app-main-49:/drawable/ic_calendar.xml"
     },
     {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/layout_item_patient_search.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/layout/item_patient_search.xml"
+    },
+    {
         "merged": "com.clinic.appointmentbooking.app-debug-47:/mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "com.clinic.appointmentbooking.app-main-49:/mipmap-xxxhdpi/ic_launcher.png"
     },
@@ -40,8 +44,16 @@
         "source": "com.clinic.appointmentbooking.app-main-49:/drawable/ic_add.xml"
     },
     {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/menu_menu_receptionist_nav.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/menu/menu_receptionist_nav.xml"
+    },
+    {
         "merged": "com.clinic.appointmentbooking.app-debug-47:/mipmap-xhdpi_ic_launcher.png.flat",
         "source": "com.clinic.appointmentbooking.app-main-49:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/drawable_ic_phone.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/drawable/ic_phone.xml"
     },
     {
         "merged": "com.clinic.appointmentbooking.app-debug-47:/drawable_ic_check.xml.flat",
@@ -76,8 +88,20 @@
         "source": "com.clinic.appointmentbooking.app-main-49:/layout/item_appointment_receptionist.xml"
     },
     {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/menu_menu_doctor_toolbar.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/menu/menu_doctor_toolbar.xml"
+    },
+    {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/layout_activity_add_patient.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/layout/activity_add_patient.xml"
+    },
+    {
         "merged": "com.clinic.appointmentbooking.app-debug-47:/mipmap-mdpi_ic_launcher.png.flat",
         "source": "com.clinic.appointmentbooking.app-main-49:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/drawable_bg_action_circle_amber.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/drawable/bg_action_circle_amber.xml"
     },
     {
         "merged": "com.clinic.appointmentbooking.app-debug-47:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
@@ -94,6 +118,10 @@
     {
         "merged": "com.clinic.appointmentbooking.app-debug-47:/drawable_ic_person.xml.flat",
         "source": "com.clinic.appointmentbooking.app-main-49:/drawable/ic_person.xml"
+    },
+    {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/layout_activity_book_appointment.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/layout/activity_book_appointment.xml"
     },
     {
         "merged": "com.clinic.appointmentbooking.app-debug-47:/mipmap-xxhdpi_ic_launcher_round.png.flat",
@@ -124,12 +152,28 @@
         "source": "com.clinic.appointmentbooking.app-main-49:/mipmap-hdpi/ic_launcher_round.png"
     },
     {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/layout_activity_view_appointments.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/layout/activity_view_appointments.xml"
+    },
+    {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/drawable_bg_action_circle_green.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/drawable/bg_action_circle_green.xml"
+    },
+    {
         "merged": "com.clinic.appointmentbooking.app-debug-47:/mipmap-mdpi_ic_launcher_round.png.flat",
         "source": "com.clinic.appointmentbooking.app-main-49:/mipmap-mdpi/ic_launcher_round.png"
     },
     {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/layout_nav_header_receptionist.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/layout/nav_header_receptionist.xml"
+    },
+    {
         "merged": "com.clinic.appointmentbooking.app-debug-47:/mipmap-hdpi_ic_launcher.png.flat",
         "source": "com.clinic.appointmentbooking.app-main-49:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/drawable_bg_action_circle_blue.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/drawable/bg_action_circle_blue.xml"
     },
     {
         "merged": "com.clinic.appointmentbooking.app-debug-47:/drawable_bg_status_pending.xml.flat",

@@ -55,6 +55,17 @@
         <activity
             android:name="com.clinic.appointmentbooking.view.DoctorDashboardActivity"
             android:exported="false" />
+        <activity
+            android:name="com.clinic.appointmentbooking.view.AddPatientActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.clinic.appointmentbooking.view.BookAppointmentActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.clinic.appointmentbooking.view.ViewAppointmentsActivity"
+            android:exported="false" />
 
         <service
             android:name="com.google.firebase.components.ComponentDiscoveryService"

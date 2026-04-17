@@ -6,24 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.clinic.appointmentbooking.R;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.button.MaterialButton;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class ActivityDoctorDashboardBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final CoordinatorLayout rootView;
 
   @NonNull
-  public final MaterialButton btnLogout;
+  public final AppBarLayout appBarLayout;
 
   @NonNull
   public final ProgressBar progressBar;
@@ -37,21 +39,30 @@ public final class ActivityDoctorDashboardBinding implements ViewBinding {
   @NonNull
   public final LinearLayout tvEmptyState;
 
-  private ActivityDoctorDashboardBinding(@NonNull LinearLayout rootView,
-      @NonNull MaterialButton btnLogout, @NonNull ProgressBar progressBar,
+  @NonNull
+  public final TextView tvMonthlyCount;
+
+  @NonNull
+  public final TextView tvTodayCount;
+
+  private ActivityDoctorDashboardBinding(@NonNull CoordinatorLayout rootView,
+      @NonNull AppBarLayout appBarLayout, @NonNull ProgressBar progressBar,
       @NonNull RecyclerView rvAppointments, @NonNull MaterialToolbar toolbar,
-      @NonNull LinearLayout tvEmptyState) {
+      @NonNull LinearLayout tvEmptyState, @NonNull TextView tvMonthlyCount,
+      @NonNull TextView tvTodayCount) {
     this.rootView = rootView;
-    this.btnLogout = btnLogout;
+    this.appBarLayout = appBarLayout;
     this.progressBar = progressBar;
     this.rvAppointments = rvAppointments;
     this.toolbar = toolbar;
     this.tvEmptyState = tvEmptyState;
+    this.tvMonthlyCount = tvMonthlyCount;
+    this.tvTodayCount = tvTodayCount;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public CoordinatorLayout getRoot() {
     return rootView;
   }
 
@@ -76,9 +87,9 @@ public final class ActivityDoctorDashboardBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btnLogout;
-      MaterialButton btnLogout = ViewBindings.findChildViewById(rootView, id);
-      if (btnLogout == null) {
+      id = R.id.appBarLayout;
+      AppBarLayout appBarLayout = ViewBindings.findChildViewById(rootView, id);
+      if (appBarLayout == null) {
         break missingId;
       }
 
@@ -106,8 +117,20 @@ public final class ActivityDoctorDashboardBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityDoctorDashboardBinding((LinearLayout) rootView, btnLogout, progressBar,
-          rvAppointments, toolbar, tvEmptyState);
+      id = R.id.tvMonthlyCount;
+      TextView tvMonthlyCount = ViewBindings.findChildViewById(rootView, id);
+      if (tvMonthlyCount == null) {
+        break missingId;
+      }
+
+      id = R.id.tvTodayCount;
+      TextView tvTodayCount = ViewBindings.findChildViewById(rootView, id);
+      if (tvTodayCount == null) {
+        break missingId;
+      }
+
+      return new ActivityDoctorDashboardBinding((CoordinatorLayout) rootView, appBarLayout,
+          progressBar, rvAppointments, toolbar, tvEmptyState, tvMonthlyCount, tvTodayCount);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

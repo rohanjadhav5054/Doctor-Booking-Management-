@@ -1,26 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base App Theme -->
-    <style name="Theme.AppointmentBooking" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary_blue</item>
-        <item name="colorPrimaryVariant">@color/primary_blue_dark</item>
+
+    <!-- ── Base App Theme ─────────────────────────────────────────── -->
+    <style name="Theme.AppointmentBooking"
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- MD3 primary -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/accent_teal</item>
+
+        <!-- MD3 secondary -->
+        <item name="colorSecondary">@color/secondary</item>
         <item name="colorOnSecondary">@color/white</item>
+
+        <!-- Window -->
         <item name="android:windowBackground">@color/bg_light</item>
-        
+        <item name="android:statusBarColor">@color/primary_dark</item>
+
+        <!-- Override button toggle group -->
+        <item name="materialButtonToggleGroupStyle">
+            @style/Widget.MaterialComponents.MaterialButtonToggleGroup
+        </item>
     </style>
 
-    <!-- Splash Theme (Fullscreen) -->
-    <style name="Theme.AppointmentBooking.Splash" parent="Theme.AppointmentBooking">
-        <item name="android:windowBackground">@color/primary_blue</item>
+    <!-- ── Splash (fullscreen, no action bar) ──────────────────────── -->
+    <style name="Theme.AppointmentBooking.Splash"
+        parent="Theme.AppointmentBooking">
         <item name="android:windowFullscreen">true</item>
-        <item name="android:statusBarColor">@color/primary_blue</item>
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:windowBackground">@color/primary</item>
     </style>
 
-    <!-- Toolbar Text Appearance -->
-    <style name="TextAppearance.Toolbar" parent="TextAppearance.MaterialComponents.Headline6">
+    <!-- ── Toolbar title text style ─────────────────────────────────── -->
+    <style name="TextAppearance.Toolbar"
+        parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <!-- ── TextInputLayout outlined style (shared) ──────────────────── -->
+    <style name="InputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxStrokeColor">@color/primary</item>
+    </style>
+
 </resources>

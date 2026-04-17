@@ -1,29 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary Colors -->
-    <color name="primary_blue">#1565C0</color>
-    <color name="primary_blue_dark">#0D47A1</color>
-    <color name="primary_blue_light">#E3F2FD</color>
+    <!-- ── Primary (MD3 Blue 600) ─────────────────────────── -->
+    <color name="primary">#2563EB</color>
+    <color name="primary_dark">#1D4ED8</color>
+    <color name="primary_light">#DBEAFE</color>
+    <!-- keep old aliases so existing layouts still compile -->
+    <color name="primary_blue">#2563EB</color>
+    <color name="primary_blue_dark">#1D4ED8</color>
+    <color name="primary_blue_light">#DBEAFE</color>
 
-    <!-- Accent Colors -->
-    <color name="accent_teal">#00897B</color>
-    <color name="accent_orange">#F57C00</color>
-    <color name="success_green">#2E7D32</color>
-    <color name="error_red">#C62828</color>
+    <!-- ── Secondary (Sky 500) ───────────────────────────── -->
+    <color name="secondary">#0EA5E9</color>
+    <color name="accent_teal">#0EA5E9</color>
 
-    <!-- Background Colors -->
-    <color name="bg_light">#F5F7FA</color>
+    <!-- ── Semantic ───────────────────────────────────────── -->
+    <color name="success">#22C55E</color>
+    <color name="success_green">#22C55E</color>
+    <color name="success_light">#DCFCE7</color>
+
+    <color name="warning">#F59E0B</color>
+    <color name="accent_orange">#F59E0B</color>
+    <color name="warning_light">#FEF3C7</color>
+
+    <color name="error">#EF4444</color>
+    <color name="error_red">#EF4444</color>
+    <color name="error_light">#FEE2E2</color>
+
+    <!-- ── Neutrals ────────────────────────────────────────── -->
+    <color name="bg_light">#F8FAFC</color>
+    <color name="surface">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
+    <color name="card_bg">#FFFFFF</color>
     <color name="black">#000000</color>
 
-    <!-- Text Colors -->
-    <color name="text_primary">#1A1A2E</color>
-    <color name="text_secondary">#6C757D</color>
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="text_hint">#94A3B8</color>
+    <color name="divider">#E2E8F0</color>
 
-    <!-- Status Colors -->
-    <color name="status_pending">#F57C00</color>
-    <color name="status_completed">#2E7D32</color>
-
-    <!-- Card -->
-    <color name="card_bg">#FFFFFF</color>
+    <!-- ── Status chips ────────────────────────────────────── -->
+    <color name="status_pending">#F59E0B</color>
+    <color name="status_completed">#22C55E</color>
+    <color name="status_pending_bg">#FEF3C7</color>
+    <color name="status_completed_bg">#DCFCE7</color>
 </resources>

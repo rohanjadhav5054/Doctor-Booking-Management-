@@ -21,6 +21,15 @@
     <string name="status_completed">Completed</string>
     <string name="empty_no_appointments">No Appointments Yet</string>
 
+    <!-- Navigation Drawer -->
+    <string name="nav_open">Open Navigation Drawer</string>
+    <string name="nav_close">Close Navigation Drawer</string>
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_add_patient">Add Patient</string>
+    <string name="nav_book_appointment">Book Appointment</string>
+    <string name="nav_view_appointments">View Appointments</string>
+    <string name="nav_logout">Logout</string>
+
     <!-- Doctors List -->
     <string-array name="doctors_list">
         <item>Select Doctor</item>
