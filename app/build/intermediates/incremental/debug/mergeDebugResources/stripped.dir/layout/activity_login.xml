@@ -4,112 +4,146 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_blue"
+    android:background="@drawable/bg_gradient_login"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="600dp">
+        android:minHeight="680dp">
 
-        <!-- Top Wave / Brand Area -->
+        <!-- Brand area -->
         <LinearLayout
             android:id="@+id/layoutBrand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="60dp"
-            android:paddingBottom="40dp"
+            android:paddingTop="72dp"
+            android:paddingBottom="32dp"
             android:paddingHorizontal="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <ImageView
+            <FrameLayout
                 android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:contentDescription="Medical Icon"
-                android:src="@drawable/ic_medical_cross"
-                android:tint="@color/white" />
+                android:layout_height="80dp">
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/bg_icon_circle"
+                    android:alpha="0.25" />
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_medical_cross"
+                    android:tint="@color/white"
+                    android:contentDescription="ClinicBook" />
+            </FrameLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="16dp"
                 android:text="ClinicBook"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 android:textSize="30sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="6dp"
                 android:text="Clinic Management System"
-                android:textColor="#BBFFFFFF"
+                android:textColor="#CCffffff"
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Login Card -->
-        <androidx.cardview.widget.CardView
+        <!-- Login Card — no elevation, stroke border instead -->
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="0dp"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="28dp"
-            app:cardElevation="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
+            app:layout_constraintTop_toBottomOf="@id/layoutBrand"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutBrand">
+            app:layout_constraintEnd_toEndOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="28dp">
+                android:paddingHorizontal="24dp"
+                android:paddingTop="32dp"
+                android:paddingBottom="36dp">
 
-                <!-- Role Toggle Header -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sign in as"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="13sp"
+                    android:text="Welcome back"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="Sign in to continue"
+                    android:textColor="@color/text_hint"
+                    android:textSize="14sp" />
+
+                <!-- Role label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SIGN IN AS"
+                    android:textColor="@color/text_hint"
+                    android:textSize="11sp"
+                    android:letterSpacing="0.08"
                     android:layout_marginBottom="10dp" />
 
-                <!-- Toggle Group -->
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/toggleRoleGroup"
+                <!-- Custom toggle row -->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_toggle_unselected"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:padding="4dp">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnRoleDoctor"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="🩺 Doctor"
-                        android:textSize="14sp"
-                        app:strokeColor="@color/primary_blue"
-                        app:cornerRadius="12dp" />
+                        android:text="🩺  Doctor"
+                        android:textSize="13sp"
+                        android:textColor="@color/white"
+                        app:backgroundTint="@color/primary"
+                        app:cornerRadius="8dp"
+                        app:elevation="0dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnRoleReceptionist"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                         android:layout_width="0dp"
-                        android:layout_height="48dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="🖥 Receptionist"
-                        android:textSize="14sp"
-                        app:strokeColor="@color/primary_blue"
-                        app:cornerRadius="12dp" />
-
-                </com.google.android.material.button.MaterialButtonToggleGroup>
+                        android:text="🖥  Receptionist"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary"
+                        app:backgroundTint="@color/bg_light"
+                        app:cornerRadius="8dp"
+                        app:elevation="0dp" />
+                </LinearLayout>
 
                 <!-- Role indicator -->
                 <TextView
@@ -117,38 +151,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:background="#EEF2FF"
+                    android:background="@drawable/bg_action_circle_blue"
                     android:gravity="center"
                     android:paddingVertical="8dp"
-                    android:text="No role selected"
-                    android:textColor="@color/primary_blue"
+                    android:text="Signing in as Doctor"
+                    android:textColor="@color/primary"
                     android:textSize="13sp"
                     android:visibility="gone" />
 
-                <!-- Welcome Text -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:text="Welcome Back"
-                    android:textColor="@color/text_primary"
-                    android:textSize="22sp" />
-
-                <!-- Email Field -->
+                <!-- Email -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Email Address"
+                    android:layout_marginBottom="14dp"
+                    android:hint="Email address"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
                     app:boxCornerRadiusTopStart="12dp"
-                    app:boxStrokeColor="@color/primary_blue"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxStrokeColor="#E5E7EB"
+                    app:boxStrokeWidth="1dp"
+                    app:boxStrokeWidthFocused="1.5dp"
                     app:startIconDrawable="@drawable/ic_email"
-                    app:startIconTint="@color/primary_blue">
-
+                    app:startIconTint="@color/text_hint">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
@@ -157,22 +183,23 @@
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Password Field -->
+                <!-- Password -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="28dp"
                     android:hint="Password"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
                     app:boxCornerRadiusTopStart="12dp"
-                    app:boxStrokeColor="@color/primary_blue"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxStrokeColor="#E5E7EB"
+                    app:boxStrokeWidth="1dp"
+                    app:boxStrokeWidthFocused="1.5dp"
                     app:passwordToggleEnabled="true"
                     app:startIconDrawable="@drawable/ic_lock"
-                    app:startIconTint="@color/primary_blue">
-
+                    app:startIconTint="@color/text_hint">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
@@ -185,25 +212,25 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="52dp"
                     android:text="Sign In"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:backgroundTint="@color/primary_blue"
-                    app:cornerRadius="12dp" />
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    app:backgroundTint="@color/primary"
+                    app:cornerRadius="12dp"
+                    app:elevation="0dp" />
 
-                <!-- Progress Bar -->
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="14dp"
-                    android:indeterminateTint="@color/primary_blue"
+                    android:indeterminateTint="@color/primary"
                     android:visibility="gone" />
-
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

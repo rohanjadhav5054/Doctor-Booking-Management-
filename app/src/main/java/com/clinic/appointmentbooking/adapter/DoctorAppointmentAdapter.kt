@@ -25,7 +25,9 @@ class DoctorAppointmentAdapter(
 
             // Patient info
             binding.tvPatientName.text = appointment.patientName
-            binding.tvDoctor.text = "Dr. ${appointment.doctorName}"
+            // Avoid "Dr. Dr." if doctorName already contains the prefix
+            val docName = appointment.doctorName.trim()
+            binding.tvDoctor.text = if (docName.startsWith("Dr.", ignoreCase = true)) docName else "Dr. $docName"
             binding.tvTime.text = "${appointment.date}  •  ${appointment.time}"
 
             // Phone

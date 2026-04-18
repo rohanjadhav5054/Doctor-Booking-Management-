@@ -1,11 +1,13 @@
 package com.clinic.appointmentbooking.view
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.clinic.appointmentbooking.R
 import com.clinic.appointmentbooking.databinding.ActivityLoginBinding
 import com.clinic.appointmentbooking.util.Resource
@@ -16,7 +18,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val authViewModel: AuthViewModel by viewModels()
 
-    // Track locally selected role (for UX validation)
     private var localSelectedRole: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,26 +40,42 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupRoleToggle() {
-        binding.toggleRoleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            if (isChecked) {
-                localSelectedRole = when (checkedId) {
-                    R.id.btnRoleDoctor -> "doctor"
-                    R.id.btnRoleReceptionist -> "receptionist"
-                    else -> ""
-                }
-                val label = if (localSelectedRole == "doctor")
-                    "👨‍⚕️ Signing in as Doctor"
-                else
-                    "🖥️ Signing in as Receptionist"
-                binding.tvSelectedRole.text = label
-                binding.tvSelectedRole.visibility = View.VISIBLE
-            }
+        binding.btnRoleDoctor.setOnClickListener { selectRole("doctor") }
+        binding.btnRoleReceptionist.setOnClickListener { selectRole("receptionist") }
+        // Pre-select Doctor by default
+        selectRole("doctor")
+    }
+
+    private fun selectRole(role: String) {
+        localSelectedRole = role
+        val primaryColor = ContextCompat.getColor(this, R.color.primary)
+        val bgLight = ContextCompat.getColor(this, R.color.bg_light)
+        val white = ContextCompat.getColor(this, R.color.white)
+        val textSecondary = ContextCompat.getColor(this, R.color.text_secondary)
+
+        if (role == "doctor") {
+            binding.btnRoleDoctor.backgroundTintList = ColorStateList.valueOf(primaryColor)
+            binding.btnRoleDoctor.setTextColor(white)
+            binding.btnRoleReceptionist.backgroundTintList = ColorStateList.valueOf(bgLight)
+            binding.btnRoleReceptionist.setTextColor(textSecondary)
+        } else {
+            binding.btnRoleReceptionist.backgroundTintList = ColorStateList.valueOf(primaryColor)
+            binding.btnRoleReceptionist.setTextColor(white)
+            binding.btnRoleDoctor.backgroundTintList = ColorStateList.valueOf(bgLight)
+            binding.btnRoleDoctor.setTextColor(textSecondary)
         }
+
+        val label = if (role == "doctor")
+            "👨‍⚕️ Signing in as Doctor"
+        else
+            "🖥️ Signing in as Receptionist"
+        binding.tvSelectedRole.text = label
+        binding.tvSelectedRole.visibility = View.VISIBLE
     }
 
     private fun setupClickListeners() {
         binding.btnLogin.setOnClickListener {
-            val email = binding.etEmail.text.toString().trim()
+            val email    = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
 
             if (email.isBlank() || password.isBlank()) {
@@ -73,10 +90,8 @@ class LoginActivity : AppCompatActivity() {
         authViewModel.loginState.observe(this) { resource ->
             when (resource) {
                 is Resource.Loading -> showLoading(true)
-                is Resource.Success -> {
-                    authViewModel.fetchUserRole(resource.data)
-                }
-                is Resource.Error -> {
+                is Resource.Success -> authViewModel.fetchUserRole(resource.data)
+                is Resource.Error   -> {
                     showLoading(false)
                     Toast.makeText(this, resource.message, Toast.LENGTH_LONG).show()
                 }
@@ -90,12 +105,13 @@ class LoginActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     showLoading(false)
                     val roleFromDb = resource.data
-                    // If user selected a role locally, validate it matches; else just navigate
                     if (localSelectedRole.isNotEmpty() &&
-                        roleFromDb.lowercase() != localSelectedRole.lowercase()) {
+                        roleFromDb.lowercase() != localSelectedRole.lowercase()
+                    ) {
                         Toast.makeText(
                             this,
-                            "Access denied. You are registered as: ${roleFromDb.replaceFirstChar { it.uppercase() }}",
+                            "Access denied. You are registered as: " +
+                                    roleFromDb.replaceFirstChar { it.uppercase() },
                             Toast.LENGTH_LONG
                         ).show()
                         authViewModel.logout()
@@ -114,7 +130,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun navigateByRole(role: String) {
         val intent = when (role.lowercase()) {
-            "doctor" -> Intent(this, DoctorDashboardActivity::class.java)
+            "doctor"       -> Intent(this, DoctorDashboardActivity::class.java)
             "receptionist" -> Intent(this, ReceptionistDashboardActivity::class.java)
             else -> {
                 Toast.makeText(this, "Unknown role: $role", Toast.LENGTH_LONG).show()
@@ -127,10 +143,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showLoading(show: Boolean) {
-        binding.progressBar.visibility = if (show) View.VISIBLE else View.GONE
-        binding.btnLogin.isEnabled = !show
-        binding.etEmail.isEnabled = !show
-        binding.etPassword.isEnabled = !show
-        binding.toggleRoleGroup.isEnabled = !show
+        binding.progressBar.visibility        = if (show) View.VISIBLE else View.GONE
+        binding.btnLogin.isEnabled            = !show
+        binding.etEmail.isEnabled             = !show
+        binding.etPassword.isEnabled          = !show
+        binding.btnRoleDoctor.isEnabled       = !show
+        binding.btnRoleReceptionist.isEnabled = !show
     }
 }

@@ -1,9 +1,0 @@
-com.clinic.appointmentbooking.app-pngs-0 /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/generated/res/pngs/debug
-com.clinic.appointmentbooking.app-res-1 /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/generated/res/processDebugGoogleServices
-com.clinic.appointmentbooking.app-resValues-2 /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/generated/res/resValues/debug
-com.clinic.appointmentbooking.app-updated_navigation_xml-3 /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/generated/updated_navigation_xml/debug
-com.clinic.appointmentbooking.app-packageDebugResources-4 /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
-com.clinic.appointmentbooking.app-packageDebugResources-5 /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
-com.clinic.appointmentbooking.app-debug-6 /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/merged_res/debug/mergeDebugResources
-com.clinic.appointmentbooking.app-debug-7 /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/debug/res
-com.clinic.appointmentbooking.app-main-8 /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/res
