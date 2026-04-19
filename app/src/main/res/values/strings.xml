@@ -39,4 +39,8 @@
         <item>Dr. Sunita Patel</item>
         <item>Dr. Vikram Singh</item>
     </string-array>
+
+    <!-- Hospital Identity -->
+    <string name="hospital_name">Bhagirati Hospital</string>
+    <string name="hospital_type">Advanced Orthopedic Care</string>
 </resources>

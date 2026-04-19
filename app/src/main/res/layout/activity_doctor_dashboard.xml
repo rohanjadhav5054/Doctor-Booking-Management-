@@ -10,22 +10,18 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/primary"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            app:title="Doctor Dashboard"
-            app:titleTextColor="@color/text_primary"
+            android:background="@color/primary"
+            app:title="ClinicBook"
+            app:titleTextColor="@color/white"
             app:menu="@menu/menu_doctor_toolbar" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E5E7EB" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -62,13 +58,15 @@
                         android:layout_height="wrap_content"
                         android:text="Good Day 👨‍⚕️"
                         android:textColor="@color/text_hint"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:letterSpacing="0.01" />
 
                     <TextView
+                        android:id="@+id/tvDoctorName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Doctor Dashboard"
+                        android:text="Dr. —"
                         android:textColor="@color/text_primary"
                         android:textStyle="bold"
                         android:textSize="20sp" />

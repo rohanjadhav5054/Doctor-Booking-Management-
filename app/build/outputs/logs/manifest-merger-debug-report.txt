@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-55:12
-INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-55:12
-INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-55:12
-INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-55:12
+ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-59:12
+INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-59:12
+INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-59:12
+INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:2:1-59:12
 MERGED from [androidx.databinding:viewbinding:9.1.0] /Users/rohan/.gradle/caches/9.3.1/transforms/931922bb407b97b9c4e70ad9e4ce1748/transformed/jetified-viewbinding-9.1.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.11.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f976aa120ee886cc9d313856e04c447/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/rohan/.gradle/caches/9.3.1/transforms/60480f6d9167eaea8d977f4e1e6385ad/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
@@ -135,8 +135,8 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:21.5.1] /U
 	android:name
 		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:5:22-76
 application
-ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:7:5-53:19
-INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:7:5-53:19
+ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:7:5-57:19
+INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:7:5-57:19
 MERGED from [com.google.android.material:material:1.11.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f976aa120ee886cc9d313856e04c447/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] /Users/rohan/.gradle/caches/9.3.1/transforms/1f976aa120ee886cc9d313856e04c447/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/rohan/.gradle/caches/9.3.1/transforms/60480f6d9167eaea8d977f4e1e6385ad/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -279,6 +279,12 @@ ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/ma
 		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:51:13-37
 	android:name
 		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:50:13-58
+activity#com.clinic.appointmentbooking.view.PatientDetailsActivity
+ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:53:9-55:40
+	android:exported
+		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:55:13-37
+	android:name
+		ADDED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml:54:13-56
 uses-sdk
 INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/src/main/AndroidManifest.xml

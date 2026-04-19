@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused: primary blue stroke -->
+    <item android:color="@color/primary" android:state_focused="true" />
+    <!-- Hovered: slightly darker border -->
+    <item android:color="#CBD5E1" android:state_hovered="true" />
+    <!-- Default: thin light gray border -->
+    <item android:color="#E5E7EB" />
+</selector>

@@ -2,20 +2,18 @@ package com.clinic.appointmentbooking.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import com.clinic.appointmentbooking.R
 import com.clinic.appointmentbooking.databinding.ActivityReceptionistDashboardBinding
 import com.clinic.appointmentbooking.util.Resource
 import com.clinic.appointmentbooking.viewmodel.AppointmentViewModel
 import com.clinic.appointmentbooking.viewmodel.AuthViewModel
-import com.google.android.material.navigation.NavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class ReceptionistDashboardActivity : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener {
+class ReceptionistDashboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReceptionistDashboardBinding
     private val appointmentViewModel: AppointmentViewModel by viewModels()
@@ -28,22 +26,38 @@ class ReceptionistDashboardActivity : AppCompatActivity(),
 
         setSupportActionBar(binding.toolbar)
 
-        // Drawer toggle (hamburger ↔ arrow)
-        val toggle = ActionBarDrawerToggle(
-            this, binding.drawerLayout, binding.toolbar,
-            R.string.nav_open, R.string.nav_close
-        )
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        binding.navigationView.setNavigationItemSelectedListener(this)
-
-        // Quick-action card click listeners
         setupCardClicks()
-
-        // Live appointment stats
         setupObservers()
         appointmentViewModel.startListeningToAppointments()
+    }
+
+    // ── Toolbar overflow menu ────────────────────────────────────────────────
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_receptionist_toolbar, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_add_patient -> {
+                startActivity(Intent(this, AddPatientActivity::class.java))
+                true
+            }
+            R.id.action_book_appointment -> {
+                startActivity(Intent(this, BookAppointmentActivity::class.java))
+                true
+            }
+            R.id.action_view_appointments -> {
+                startActivity(Intent(this, ViewAppointmentsActivity::class.java))
+                true
+            }
+            R.id.action_logout -> {
+                showLogoutConfirmationDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     // ── Quick-action cards ───────────────────────────────────────────────────
@@ -60,21 +74,7 @@ class ReceptionistDashboardActivity : AppCompatActivity(),
         }
     }
 
-    // ── Navigation drawer ────────────────────────────────────────────────────
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_dashboard        -> { /* already here */ }
-            R.id.nav_add_patient      -> startActivity(Intent(this, AddPatientActivity::class.java))
-            R.id.nav_book_appointment -> startActivity(Intent(this, BookAppointmentActivity::class.java))
-            R.id.nav_view_appointments-> startActivity(Intent(this, ViewAppointmentsActivity::class.java))
-            R.id.nav_logout           -> logout()
-        }
-        binding.drawerLayout.closeDrawer(GravityCompat.START)
-        return true
-    }
-
-    // ── Stats ────────────────────────────────────────────────────────────────
+    // ── Stats observers ──────────────────────────────────────────────────────
 
     private fun setupObservers() {
         appointmentViewModel.appointments.observe(this) { resource ->
@@ -91,19 +91,21 @@ class ReceptionistDashboardActivity : AppCompatActivity(),
 
     // ── Logout ───────────────────────────────────────────────────────────────
 
+    private fun showLogoutConfirmationDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to logout?")
+            .setIcon(R.drawable.ic_logout)
+            .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton("Logout")  { _, _      -> logout() }
+            .show()
+    }
+
     private fun logout() {
         authViewModel.logout()
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
-    }
-
-    override fun onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
     }
 }

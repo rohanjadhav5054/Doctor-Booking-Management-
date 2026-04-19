@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_add_patient"
+        android:icon="@drawable/ic_person"
+        android:title="Add Patient"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_book_appointment"
+        android:icon="@drawable/ic_calendar"
+        android:title="Book Appointment"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_view_appointments"
+        android:icon="@drawable/ic_patient"
+        android:title="View Appointments"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="Logout"
+        app:showAsAction="never" />
+
+</menu>

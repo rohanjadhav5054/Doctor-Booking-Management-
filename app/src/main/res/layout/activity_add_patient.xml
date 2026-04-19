@@ -10,22 +10,18 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/primary"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
+            android:background="@color/primary"
             app:title="Add Patient"
-            app:titleTextColor="@color/text_primary"
-            app:navigationIconTint="@color/text_primary" />
+            app:titleTextColor="@color/white"
+            app:navigationIconTint="@color/white" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E5E7EB" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -42,22 +38,14 @@
             android:paddingTop="24dp"
             android:paddingBottom="40dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Patient Information"
-                android:textColor="@color/text_primary"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_marginBottom="4dp" />
-
+            <!-- Subtitle only — toolbar title already says "Add Patient" -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fill in the details to register a new patient"
                 android:textColor="@color/text_hint"
                 android:textSize="13sp"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="20dp" />
 
             <!-- Form Card -->
             <com.google.android.material.card.MaterialCardView

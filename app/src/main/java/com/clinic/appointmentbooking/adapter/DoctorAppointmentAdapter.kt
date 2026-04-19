@@ -13,7 +13,8 @@ import com.clinic.appointmentbooking.model.Appointment
 
 class DoctorAppointmentAdapter(
     private val onMarkCompleted: (Appointment) -> Unit,
-    private val onSetNextVisit: (Appointment) -> Unit
+    private val onSetNextVisit: (Appointment) -> Unit,
+    private val onPatientClick: (Appointment) -> Unit = {}
 ) : ListAdapter<Appointment, DoctorAppointmentAdapter.AppointmentViewHolder>(DiffCallback()) {
 
     inner class AppointmentViewHolder(
@@ -22,6 +23,9 @@ class DoctorAppointmentAdapter(
 
         fun bind(appointment: Appointment) {
             val ctx = binding.root.context
+
+            // Card-level click → open Patient Details
+            binding.root.setOnClickListener { onPatientClick(appointment) }
 
             // Patient info
             binding.tvPatientName.text = appointment.patientName

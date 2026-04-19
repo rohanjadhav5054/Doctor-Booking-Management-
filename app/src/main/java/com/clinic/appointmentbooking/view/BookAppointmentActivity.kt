@@ -71,7 +71,8 @@ class BookAppointmentActivity : AppCompatActivity() {
         // Pre-fill the search field
         binding.etPatientSearch.setText(rebookPatientName)
         binding.tvPatientInfo.text = "📞 $rebookPatientPhone  (Rebook)"
-        binding.tvPatientInfo.visibility = View.VISIBLE
+        binding.layoutPatientInfo.visibility = View.VISIBLE
+        binding.dividerPatientInfo.visibility = View.VISIBLE
 
         // Create a temporary Patient object
         selectedPatient = Patient(
@@ -98,8 +99,9 @@ class BookAppointmentActivity : AppCompatActivity() {
         patientAdapter = PatientSearchAdapter { patient ->
             selectedPatient = patient
             binding.etPatientSearch.setText(patient.name)
-            binding.tvPatientInfo.text = "📞 ${patient.phone}  •  Age: ${patient.age}"
-            binding.tvPatientInfo.visibility = View.VISIBLE
+            binding.tvPatientInfo.text = "${patient.name}  •  📞 ${patient.phone}  •  Age: ${patient.age}"
+            binding.dividerPatientInfo.visibility = View.VISIBLE
+            binding.layoutPatientInfo.visibility = View.VISIBLE
             binding.rvPatientList.visibility = View.GONE
         }
         binding.rvPatientList.apply {
@@ -114,7 +116,8 @@ class BookAppointmentActivity : AppCompatActivity() {
                 if (query.isEmpty()) {
                     binding.rvPatientList.visibility = View.GONE
                     selectedPatient = null
-                    binding.tvPatientInfo.visibility = View.GONE
+                    binding.dividerPatientInfo.visibility = View.GONE
+                    binding.layoutPatientInfo.visibility = View.GONE
                 } else {
                     filterPatients(query)
                     binding.rvPatientList.visibility = View.VISIBLE

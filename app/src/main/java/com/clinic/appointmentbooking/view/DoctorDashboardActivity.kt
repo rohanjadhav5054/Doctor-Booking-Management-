@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,24 +34,31 @@ class DoctorDashboardActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        // Populate dynamic doctor name from Firebase Auth
+        val firebaseUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
+        val displayName = firebaseUser?.displayName
+        if (!displayName.isNullOrBlank()) {
+            binding.tvDoctorName.text = "Dr. $displayName"
+        } else {
+            binding.tvDoctorName.text = "Doctor"
+        }
+
         setupRecyclerView()
         setupObservers()
         appointmentViewModel.startListeningToAppointments()
     }
 
-    // ── Toolbar logout menu ──────────────────────────────────────────────────
+    // ── Toolbar overflow menu ────────────────────────────────────────────────
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_doctor_toolbar, menu)
-        // Tint the icon white
-        menu.findItem(R.id.action_logout)?.icon?.setTint(getColor(R.color.white))
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_logout -> {
-                logout()
+                showLogoutConfirmationDialog()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -62,7 +70,8 @@ class DoctorDashboardActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         appointmentAdapter = DoctorAppointmentAdapter(
             onMarkCompleted = { appointment -> markAsCompleted(appointment) },
-            onSetNextVisit  = { appointment -> showNextVisitPicker(appointment) }
+            onSetNextVisit  = { appointment -> showNextVisitPicker(appointment) },
+            onPatientClick  = { appointment -> openPatientDetails(appointment) }
         )
         binding.rvAppointments.apply {
             layoutManager = LinearLayoutManager(this@DoctorDashboardActivity)
@@ -73,6 +82,21 @@ class DoctorDashboardActivity : AppCompatActivity() {
     }
 
     // ── Actions ──────────────────────────────────────────────────────────────
+
+    private fun openPatientDetails(appointment: Appointment) {
+        val intent = Intent(this, PatientDetailsActivity::class.java).apply {
+            putExtra(PatientDetailsActivity.EXTRA_NAME,       appointment.patientName)
+            putExtra(PatientDetailsActivity.EXTRA_PHONE,      appointment.patientPhone)
+            putExtra(PatientDetailsActivity.EXTRA_AGE,        "") // age not in Appointment; pass blank
+            putExtra(PatientDetailsActivity.EXTRA_DOCTOR,     appointment.doctorName)
+            putExtra(PatientDetailsActivity.EXTRA_DATE,       appointment.date)
+            putExtra(PatientDetailsActivity.EXTRA_TIME,       appointment.time)
+            putExtra(PatientDetailsActivity.EXTRA_STATUS,     appointment.status)
+            putExtra(PatientDetailsActivity.EXTRA_NEXT_VISIT, appointment.nextVisitDate)
+        }
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, 0)
+    }
 
     private fun markAsCompleted(appointment: Appointment) {
         if (appointment.id.isBlank()) {
@@ -165,6 +189,20 @@ class DoctorDashboardActivity : AppCompatActivity() {
     }
 
     // ── Logout ───────────────────────────────────────────────────────────────
+
+    private fun showLogoutConfirmationDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to logout?")
+            .setIcon(R.drawable.ic_logout)
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Logout") { _, _ ->
+                logout()
+            }
+            .show()
+    }
 
     private fun logout() {
         authViewModel.logout()
