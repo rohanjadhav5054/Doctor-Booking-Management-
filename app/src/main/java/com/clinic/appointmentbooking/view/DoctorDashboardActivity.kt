@@ -1,15 +1,21 @@
 package com.clinic.appointmentbooking.view
 
+import android.Manifest
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.clinic.appointmentbooking.R
 import com.clinic.appointmentbooking.adapter.DoctorAppointmentAdapter
@@ -18,6 +24,8 @@ import com.clinic.appointmentbooking.model.Appointment
 import com.clinic.appointmentbooking.util.Resource
 import com.clinic.appointmentbooking.viewmodel.AppointmentViewModel
 import com.clinic.appointmentbooking.viewmodel.AuthViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.io.File
 import java.util.Calendar
 
 class DoctorDashboardActivity : AppCompatActivity() {
@@ -26,6 +34,29 @@ class DoctorDashboardActivity : AppCompatActivity() {
     private val appointmentViewModel: AppointmentViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
     private lateinit var appointmentAdapter: DoctorAppointmentAdapter
+
+    /** Holds the latest appointment list so we can pass it when a card is tapped. */
+    private var currentAppointments: List<Appointment> = emptyList()
+
+    /** Tracks which report the user requested while we waited for storage permission. */
+    private enum class PendingReport { NONE, TODAY, MONTH }
+    private var pendingReport = PendingReport.NONE
+
+    // Storage permission launcher (only needed on API ≤ 28)
+    private val storagePermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            when (pendingReport) {
+                PendingReport.TODAY  -> appointmentViewModel.generateTodayReport(this, currentAppointments)
+                PendingReport.MONTH -> appointmentViewModel.generateMonthReport(this, currentAppointments)
+                PendingReport.NONE  -> {}
+            }
+        } else {
+            Toast.makeText(this, "Storage permission is required to save the report.", Toast.LENGTH_LONG).show()
+        }
+        pendingReport = PendingReport.NONE
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +76,7 @@ class DoctorDashboardActivity : AppCompatActivity() {
 
         setupRecyclerView()
         setupObservers()
+        setupReportCards()
         appointmentViewModel.startListeningToAppointments()
     }
 
@@ -78,6 +110,66 @@ class DoctorDashboardActivity : AppCompatActivity() {
             adapter = appointmentAdapter
             // NestedScrollView handles scroll; disable inner scrolling
             isNestedScrollingEnabled = false
+        }
+    }
+
+    // ── Report card click handlers ───────────────────────────────────────────
+
+    private fun setupReportCards() {
+        binding.cardToday.setOnClickListener {
+            requestReportGeneration(PendingReport.TODAY)
+        }
+        binding.cardMonth.setOnClickListener {
+            requestReportGeneration(PendingReport.MONTH)
+        }
+    }
+
+    /**
+     * Requests storage permission on API ≤ 28 before generating; on API 29+ proceeds directly.
+     */
+    private fun requestReportGeneration(type: PendingReport) {
+        if (currentAppointments.isEmpty()) {
+            Toast.makeText(this, "No appointments data to generate report.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            pendingReport = type
+            storagePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            return
+        }
+
+        when (type) {
+            PendingReport.TODAY  -> appointmentViewModel.generateTodayReport(this, currentAppointments)
+            PendingReport.MONTH -> appointmentViewModel.generateMonthReport(this, currentAppointments)
+            PendingReport.NONE  -> {}
+        }
+    }
+
+    /** Opens the generated PDF in any compatible viewer via FileProvider. */
+    private fun openPdf(file: File) {
+        try {
+            val uri: Uri = FileProvider.getUriForFile(
+                this,
+                "${packageName}.fileprovider",
+                file
+            )
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(uri, "application/pdf")
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            startActivity(Intent.createChooser(intent, "Open PDF with…"))
+        } catch (e: Exception) {
+            // Fall back to a simple download-saved toast if no PDF viewer installed
+            Toast.makeText(
+                this,
+                "✅ Report saved to Downloads: ${file.name}",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -134,6 +226,7 @@ class DoctorDashboardActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
                     val list = resource.data
+                    currentAppointments = list          // keep a reference for report generation
                     if (list.isEmpty()) {
                         binding.tvEmptyState.visibility = View.VISIBLE
                         binding.rvAppointments.visibility = View.GONE
@@ -186,6 +279,27 @@ class DoctorDashboardActivity : AppCompatActivity() {
                 else -> {}
             }
         }
+
+        // ── Report generation state ──────────────────────────────────────────
+        appointmentViewModel.reportState.observe(this) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    binding.reportLoadingOverlay.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding.reportLoadingOverlay.visibility = View.GONE
+                    Toast.makeText(this, "📄 Report saved to Downloads!", Toast.LENGTH_SHORT).show()
+                    openPdf(resource.data)
+                    appointmentViewModel.resetReportState()
+                }
+                is Resource.Error -> {
+                    binding.reportLoadingOverlay.visibility = View.GONE
+                    Toast.makeText(this, "❌ ${resource.message}", Toast.LENGTH_LONG).show()
+                    appointmentViewModel.resetReportState()
+                }
+                null -> {}
+            }
+        }
     }
 
     // ── Logout ───────────────────────────────────────────────────────────────
@@ -212,3 +326,4 @@ class DoctorDashboardActivity : AppCompatActivity() {
         finish()
     }
 }
+

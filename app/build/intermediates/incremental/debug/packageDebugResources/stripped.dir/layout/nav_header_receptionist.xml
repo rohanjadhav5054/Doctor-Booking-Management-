@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/primary"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="bottom">
+
+    <!-- Frosted icon circle -->
+    <LinearLayout
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="#33FFFFFF"
+        android:gravity="center"
+        android:layout_marginBottom="14dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_receptionist"
+            android:tint="@color/white"
+            android:contentDescription="Receptionist Avatar" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ClinicBook"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Receptionist Panel"
+        android:textColor="#AAFFFFFF"
+        android:textSize="13sp"
+        android:layout_marginTop="3dp" />
+</LinearLayout>

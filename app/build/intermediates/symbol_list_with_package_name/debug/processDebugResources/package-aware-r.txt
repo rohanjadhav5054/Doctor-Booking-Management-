@@ -3030,6 +3030,7 @@ drawable bg_action_circle_blue
 drawable bg_action_circle_green
 drawable bg_banner_overlay
 drawable bg_card_shadow
+drawable bg_card_white_rounded
 drawable bg_gradient_login
 drawable bg_icon_circle
 drawable bg_icon_circle_orange
@@ -3076,7 +3077,6 @@ drawable design_snackbar_background
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable hospital_banner
-drawable hospital_logo
 drawable ic_add
 drawable ic_arrow_back
 drawable ic_arrow_back_black_24
@@ -3312,6 +3312,8 @@ id cancel_button
 id cardAddPatient
 id cardBookAppointment
 id cardLogin
+id cardMonth
+id cardToday
 id cardViewAppointments
 id carryVelocity
 id center
@@ -3593,6 +3595,7 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id reportLoadingOverlay
 id report_drawn
 id reverseSawtooth
 id right
@@ -5478,5 +5481,6 @@ styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration ifTagNotSet ifTagSet motionInterpolator motionTarget onStateTransition pathMotionArc setsTag transitionDisable upDuration viewTransitionMode
 styleable include constraintSet
+xml file_provider_paths
 xml ga_ad_services_config
 xml image_share_filepaths

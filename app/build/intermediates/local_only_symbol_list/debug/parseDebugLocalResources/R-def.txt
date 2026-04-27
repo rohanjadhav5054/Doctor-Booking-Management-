@@ -39,6 +39,7 @@ drawable bg_action_circle_blue
 drawable bg_action_circle_green
 drawable bg_banner_overlay
 drawable bg_card_shadow
+drawable bg_card_white_rounded
 drawable bg_gradient_login
 drawable bg_icon_circle
 drawable bg_icon_circle_orange
@@ -51,7 +52,6 @@ drawable bg_status_pending
 drawable bg_toggle_selected
 drawable bg_toggle_unselected
 drawable hospital_banner
-drawable hospital_logo
 drawable ic_add
 drawable ic_arrow_back
 drawable ic_calendar
@@ -85,6 +85,8 @@ id btnSetNextVisit
 id cardAddPatient
 id cardBookAppointment
 id cardLogin
+id cardMonth
+id cardToday
 id cardViewAppointments
 id dividerPatientInfo
 id etAge
@@ -105,6 +107,7 @@ id nav_dashboard
 id nav_logout
 id nav_view_appointments
 id progressBar
+id reportLoadingOverlay
 id rowAge
 id rowPhone
 id rvAppointments
@@ -194,3 +197,4 @@ style InputLayout
 style TextAppearance.Toolbar
 style Theme.AppointmentBooking
 style Theme.AppointmentBooking.Splash
+xml file_provider_paths

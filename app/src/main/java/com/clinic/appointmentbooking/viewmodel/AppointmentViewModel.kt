@@ -1,5 +1,6 @@
 package com.clinic.appointmentbooking.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,9 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.clinic.appointmentbooking.model.Appointment
 import com.clinic.appointmentbooking.model.Patient
 import com.clinic.appointmentbooking.repository.FirebaseRepository
+import com.clinic.appointmentbooking.util.ReportGenerator
+import com.clinic.appointmentbooking.util.ReportType
 import com.clinic.appointmentbooking.util.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -46,6 +52,9 @@ class AppointmentViewModel : ViewModel() {
 
     private val _monthlyCount = MutableLiveData<Int>(0)
     val monthlyCount: LiveData<Int> = _monthlyCount
+
+    private val _reportState = MutableLiveData<Resource<File>>()
+    val reportState: LiveData<Resource<File>> = _reportState
 
     // Start real-time listener for appointments
     fun startListeningToAppointments() {
@@ -174,4 +183,33 @@ class AppointmentViewModel : ViewModel() {
     fun resetUpdateState() { _updateStatusState.value = null }
     fun resetNextVisitState() { _updateNextVisitState.value = null }
     fun resetAddPatientState() { _addPatientState.value = null }
+    fun resetReportState() { _reportState.value = null }
+
+    // ────── PDF Report Generation ──────────────────────────────────────────────
+
+    fun generateTodayReport(context: Context, appointments: List<Appointment>) {
+        _reportState.value = Resource.Loading
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                ReportGenerator.generate(context, appointments, ReportType.TODAY)
+            }
+            result.fold(
+                onSuccess = { file -> _reportState.postValue(Resource.Success(file)) },
+                onFailure = { e   -> _reportState.postValue(Resource.Error(e.message ?: "Failed to generate report")) }
+            )
+        }
+    }
+
+    fun generateMonthReport(context: Context, appointments: List<Appointment>) {
+        _reportState.value = Resource.Loading
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                ReportGenerator.generate(context, appointments, ReportType.MONTH)
+            }
+            result.fold(
+                onSuccess = { file -> _reportState.postValue(Resource.Success(file)) },
+                onFailure = { e   -> _reportState.postValue(Resource.Error(e.message ?: "Failed to generate report")) }
+            )
+        }
+    }
 }
