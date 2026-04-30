@@ -13,6 +13,7 @@ import androidx.viewbinding.ViewBindings;
 import com.clinic.appointmentbooking.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.ChipGroup;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -23,6 +24,12 @@ public final class ItemAppointmentReceptionistBinding implements ViewBinding {
 
   @NonNull
   public final MaterialButton btnRebook;
+
+  @NonNull
+  public final ChipGroup chipGroupInstructions;
+
+  @NonNull
+  public final LinearLayout layoutInstructions;
 
   @NonNull
   public final LinearLayout layoutNextVisitRow;
@@ -43,11 +50,14 @@ public final class ItemAppointmentReceptionistBinding implements ViewBinding {
   public final TextView tvStatus;
 
   private ItemAppointmentReceptionistBinding(@NonNull MaterialCardView rootView,
-      @NonNull MaterialButton btnRebook, @NonNull LinearLayout layoutNextVisitRow,
+      @NonNull MaterialButton btnRebook, @NonNull ChipGroup chipGroupInstructions,
+      @NonNull LinearLayout layoutInstructions, @NonNull LinearLayout layoutNextVisitRow,
       @NonNull TextView tvDateTime, @NonNull TextView tvDoctor, @NonNull TextView tvNextVisit,
       @NonNull TextView tvPatientName, @NonNull TextView tvStatus) {
     this.rootView = rootView;
     this.btnRebook = btnRebook;
+    this.chipGroupInstructions = chipGroupInstructions;
+    this.layoutInstructions = layoutInstructions;
     this.layoutNextVisitRow = layoutNextVisitRow;
     this.tvDateTime = tvDateTime;
     this.tvDoctor = tvDoctor;
@@ -89,6 +99,18 @@ public final class ItemAppointmentReceptionistBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.chipGroupInstructions;
+      ChipGroup chipGroupInstructions = ViewBindings.findChildViewById(rootView, id);
+      if (chipGroupInstructions == null) {
+        break missingId;
+      }
+
+      id = R.id.layoutInstructions;
+      LinearLayout layoutInstructions = ViewBindings.findChildViewById(rootView, id);
+      if (layoutInstructions == null) {
+        break missingId;
+      }
+
       id = R.id.layoutNextVisitRow;
       LinearLayout layoutNextVisitRow = ViewBindings.findChildViewById(rootView, id);
       if (layoutNextVisitRow == null) {
@@ -126,7 +148,8 @@ public final class ItemAppointmentReceptionistBinding implements ViewBinding {
       }
 
       return new ItemAppointmentReceptionistBinding((MaterialCardView) rootView, btnRebook,
-          layoutNextVisitRow, tvDateTime, tvDoctor, tvNextVisit, tvPatientName, tvStatus);
+          chipGroupInstructions, layoutInstructions, layoutNextVisitRow, tvDateTime, tvDoctor,
+          tvNextVisit, tvPatientName, tvStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

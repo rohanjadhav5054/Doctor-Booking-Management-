@@ -6,6 +6,7 @@ import com.clinic.appointmentbooking.model.User
 import com.clinic.appointmentbooking.util.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import android.util.Log
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -113,6 +114,34 @@ class FirebaseRepository {
         awaitClose { ref.removeEventListener(listener) }
     }
 
+    /**
+     * One-time read that always fetches fresh data from the Firebase server.
+     * Uses .get() which bypasses the local disk cache, ensuring report data
+     * includes the very latest instructions or status changes.
+     */
+    suspend fun getFreshAppointments(): Resource<List<Appointment>> {
+        return try {
+            Log.d("ReportData", "► getFreshAppointments(): fetching from Firebase server…")
+            val snapshot = database.child("appointments").get().await()
+            val list = mutableListOf<Appointment>()
+            for (child in snapshot.children) {
+                val appt = child.getValue(Appointment::class.java)
+                if (appt != null) list.add(appt)
+            }
+            list.sortByDescending { it.createdAt }
+            Log.d("ReportData", "✅ getFreshAppointments(): received ${list.size} appointments from server")
+            list.forEachIndexed { i, appt ->
+                Log.d("ReportData",
+                    "  [$i] id=${appt.id.takeLast(6)} | patient=${appt.patientName} " +
+                    "| instructions=${appt.instructionList()}")
+            }
+            Resource.Success(list)
+        } catch (e: Exception) {
+            Log.e("ReportData", "❌ getFreshAppointments() failed: ${e.message}")
+            Resource.Error(e.message ?: "Failed to fetch appointments")
+        }
+    }
+
     suspend fun updateAppointmentStatus(appointmentId: String, status: String): Resource<Unit> {
         return try {
             database.child("appointments")
@@ -136,6 +165,22 @@ class FirebaseRepository {
             Resource.Success(Unit)
         } catch (e: Exception) {
             Resource.Error(e.message ?: "Failed to update next visit date")
+        }
+    }
+
+    /** Saves doctor instructions as an indexed map (Firebase-compatible array). */
+    suspend fun updateInstructions(appointmentId: String, instructions: List<String>): Resource<Unit> {
+        return try {
+            // Convert list to {"0":"X-Ray","1":"Lab"} — Firebase's indexed format
+            val map = instructions.mapIndexed { i, v -> i.toString() to v }.toMap()
+            database.child("appointments")
+                .child(appointmentId)
+                .child("instructions")
+                .setValue(map)
+                .await()
+            Resource.Success(Unit)
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Failed to save instructions")
         }
     }
 

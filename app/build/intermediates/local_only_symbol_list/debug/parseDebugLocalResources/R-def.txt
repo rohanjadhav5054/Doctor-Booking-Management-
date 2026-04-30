@@ -19,6 +19,7 @@ color primary_blue_dark
 color primary_blue_light
 color primary_dark
 color primary_light
+color primary_light_selector
 color secondary
 color status_completed
 color status_completed_bg
@@ -72,6 +73,7 @@ id action_book_appointment
 id action_logout
 id action_view_appointments
 id appBarLayout
+id btnAddInstructions
 id btnBookAppointment
 id btnEditDate
 id btnEditTime
@@ -88,6 +90,7 @@ id cardLogin
 id cardMonth
 id cardToday
 id cardViewAppointments
+id chipGroupInstructions
 id dividerPatientInfo
 id etAge
 id etEmail
@@ -98,6 +101,7 @@ id etPhone
 id ivLogo
 id layoutBrand
 id layoutEmpty
+id layoutInstructions
 id layoutNextVisit
 id layoutNextVisitRow
 id layoutPatientInfo

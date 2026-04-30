@@ -40,6 +40,10 @@
         "source": "com.clinic.appointmentbooking.app-main-49:/layout/activity_splash.xml"
     },
     {
+        "merged": "com.clinic.appointmentbooking.app-debug-47:/color_primary_light_selector.xml.flat",
+        "source": "com.clinic.appointmentbooking.app-main-49:/color/primary_light_selector.xml"
+    },
+    {
         "merged": "com.clinic.appointmentbooking.app-debug-47:/drawable_ic_time.xml.flat",
         "source": "com.clinic.appointmentbooking.app-main-49:/drawable/ic_time.xml"
     },

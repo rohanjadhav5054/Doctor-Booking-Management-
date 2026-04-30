@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patient Self Booking – Bhagirati Hospital</title>
+  <meta name="description"
+    content="Book your appointment at Bhagirati Hospital. Search by phone number and confirm your slot instantly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #2563EB;
+      --primary-dark: #1D4ED8;
+      --primary-light: #DBEAFE;
+      --success: #22C55E;
+      --success-dark: #16A34A;
+      --error: #EF4444;
+      --bg: #EEF2FF;
+      --surface: #FFFFFF;
+      --text: #0F172A;
+      --text-sec: #64748B;
+      --border: #E2E8F0;
+      --radius: 14px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 55%, #0EA5E9 100%);
+      color: #fff;
+      padding: 28px 20px 36px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, .18);
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: clamp(20px, 5vw, 26px);
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 13px;
+      opacity: .82;
+      margin-top: 5px;
+    }
+
+    /* ── Container ── */
+    .container {
+      max-width: 480px;
+      margin: -20px auto 48px;
+      padding: 0 16px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 24px rgba(37, 99, 235, .10);
+      padding: 26px 24px;
+      margin-bottom: 16px;
+      animation: fadeUp .35s ease both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    /* ── Form fields ── */
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-sec);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--surface);
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+    }
+
+    input::placeholder {
+      color: #94A3B8;
+    }
+
+    input[readonly] {
+      background: #F8FAFC;
+      color: var(--text-sec);
+      cursor: default;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px 16px;
+      border: none;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all .2s;
+      letter-spacing: .2px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, .35);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .btn-primary:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .btn-success:hover:not(:disabled) {
+      background: var(--success-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(34, 197, 94, .35);
+    }
+
+    .btn-success:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .btn-success:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    /* ── Alert ── */
+    .alert {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 16px;
+      animation: fadeUp .2s ease both;
+    }
+
+    .alert-error {
+      background: #FEE2E2;
+      color: #B91C1C;
+      border: 1px solid #FCA5A5;
+    }
+
+    .alert-success {
+      background: #DCFCE7;
+      color: #166534;
+      border: 1px solid #86EFAC;
+    }
+
+    .alert-info {
+      background: var(--primary-light);
+      color: #1E40AF;
+      border: 1px solid #93C5FD;
+    }
+
+    /* ── Patient info box ── */
+    .patient-box {
+      background: var(--primary-light);
+      border: 1.5px solid #93C5FD;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 20px;
+      animation: fadeUp .25s ease both;
+    }
+
+    .patient-box .p-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .patient-box .p-meta {
+      font-size: 13px;
+      color: #1E40AF;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .patient-box .p-meta span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ── Date/time display row ── */
+    .datetime-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .dt-box {
+      background: #F8FAFC;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      padding: 12px 14px;
+    }
+
+    .dt-box .dt-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-sec);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 4px;
+    }
+
+    .dt-box .dt-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 20px 0;
+    }
+
+    /* ── Spinner ── */
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(255, 255, 255, .35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      display: none;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ── Success screen ── */
+    #successScreen {
+      text-align: center;
+      padding: 12px 0;
+    }
+
+    .check-icon {
+      font-size: 60px;
+      margin-bottom: 12px;
+    }
+
+    #successScreen h2 {
+      font-size: 21px;
+      color: var(--success);
+      margin-bottom: 8px;
+    }
+
+    #successScreen p {
+      color: var(--text-sec);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .summary-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin: 18px 0;
+      text-align: left;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+
+    .summary-row .sr-label {
+      color: var(--text-sec);
+    }
+
+    .summary-row .sr-value {
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .btn-reset {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      border-radius: 9px;
+      padding: 11px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all .2s;
+      margin-top: 4px;
+    }
+
+    .btn-reset:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* ── Patient selection list ── */
+    #selectionSection .sel-heading {
+      font-size: 13px;
+      color: var(--text-sec);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    #selectionSection .sel-heading strong {
+      color: var(--text);
+    }
+
+    .patient-select-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      background: var(--surface);
+      transition: border-color .18s, box-shadow .18s, background .18s;
+    }
+
+    .patient-select-card:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 2px 10px rgba(37, 99, 235, .12);
+    }
+
+    .patient-select-card .ps-info .ps-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .patient-select-card .ps-info .ps-meta {
+      font-size: 12px;
+      color: var(--text-sec);
+      display: flex;
+      gap: 14px;
+    }
+
+    .patient-select-card .ps-arrow {
+      font-size: 18px;
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-left: 8px;
+    }
+
+    /* ── Mode toggle ── */
+    .mode-toggle {
+      display: flex;
+      background: #F1F5F9;
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 22px;
+      gap: 4px;
+    }
+
+    .mode-btn {
+      flex: 1;
+      padding: 9px 8px;
+      border: none;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      color: var(--text-sec);
+      background: transparent;
+      transition: all .22s;
+      letter-spacing: .1px;
+    }
+
+    .mode-btn.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 1px 6px rgba(37, 99, 235, .14);
+    }
+
+    .mode-btn:hover:not(.active) {
+      color: var(--text);
+    }
+
+    /* ── Not-found inline prompt ── */
+    .nf-inline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      background: #FFFBEB;
+      border: 1.5px solid #FCD34D;
+      border-radius: 9px;
+      padding: 11px 14px;
+      margin-bottom: 0;
+      animation: fadeUp .2s ease both;
+    }
+
+    .nf-inline-text {
+      font-size: 13px;
+      color: #92400E;
+      line-height: 1.4;
+    }
+
+    .nf-inline-text strong {
+      display: block;
+      font-size: 13.5px;
+      color: #78350F;
+    }
+
+    .btn-switch {
+      background: #F59E0B;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 8px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .18s;
+      flex-shrink: 0;
+    }
+
+    .btn-switch:hover {
+      background: #D97706;
+    }
+
+    /* ── Amber continue button ── */
+    .btn-amber {
+      background: linear-gradient(135deg, #F59E0B, #D97706);
+      color: #fff;
+    }
+
+    .btn-amber:hover:not(:disabled) {
+      background: linear-gradient(135deg, #D97706, #B45309);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(217, 119, 6, .35);
+    }
+
+    .btn-amber:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .btn-amber:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    /* ── Section divider ── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 4px 0 16px;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      border-top: 1px dashed var(--border);
+    }
+
+    .section-divider span {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-sec);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      white-space: nowrap;
+    }
+
+    /* Phone field in new-patient mode is amber-tinted */
+    #newPatientPanel input[readonly] {
+      background: #FFFBEB;
+      color: #92400E;
+      border-color: #FCD34D;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Header ── -->
+  <header>
+    <div class="badge">🏥 Bhagirati Hospital</div>
+    <h1>Patient Self Booking</h1>
+    <p>Advanced Orthopedic Care &nbsp;·&nbsp; No login required</p>
+  </header>
+
+  <div class="container">
+
+    <!-- STEP 1 – Search / Create Card -->
+    <div class="card" id="searchCard">
+
+      <!-- Mode toggle -->
+      <div class="mode-toggle" id="modeToggle">
+        <button type="button" class="mode-btn active" id="btnModeExisting" onclick="setMode('existing')">🔍 Existing
+          Patient</button>
+        <button type="button" class="mode-btn" id="btnModeNew" onclick="setMode('new')">✏️ New Patient</button>
+      </div>
+
+      <!-- ── EXISTING PATIENT PANEL ── -->
+      <div id="existingPatientPanel">
+        <p style="font-size:13px;color:var(--text-sec);margin-bottom:18px;">
+          Enter your registered phone number to find your record.
+        </p>
+
+        <div id="searchAlert"></div>
+
+        <div class="field">
+          <label for="inputPhone">Phone Number *</label>
+          <input type="tel" id="inputPhone" placeholder="e.g. 9876543210" maxlength="15" autocomplete="tel" />
+        </div>
+
+        <button type="button" class="btn btn-primary" id="btnSearch">
+          <div class="spinner" id="searchSpinner"></div>
+          <span id="searchBtnText">Search</span>
+        </button>
+
+        <!-- Inline not-found prompt (shown after failed search) -->
+        <div id="notFoundPrompt" class="nf-inline hidden" style="margin-top:14px;">
+          <div class="nf-inline-text">
+            <strong>No record found.</strong>
+            Switch to New Patient to enter your details.
+          </div>
+          <button type="button" class="btn-switch" onclick="setMode('new')">New Patient →</button>
+        </div>
+      </div>
+
+      <!-- ── NEW PATIENT PANEL ── -->
+      <div id="newPatientPanel" class="hidden">
+        <p style="font-size:13px;color:var(--text-sec);margin-bottom:18px;">
+          Enter your details and proceed directly to booking.
+          The receptionist will complete your registration on your first visit.
+        </p>
+
+        <div id="createAlert"></div>
+
+        <div class="field">
+          <label for="createName">Full Name <span style="color:var(--error)">*</span></label>
+          <input type="text" id="createName" placeholder="e.g. Ramesh Patil" autocomplete="name" maxlength="80" />
+        </div>
+
+        <div class="field">
+          <label for="createPhone">Phone Number <span style="color:var(--error)">*</span></label>
+          <input type="tel" id="createPhone" placeholder="e.g. 9876543210" maxlength="15" autocomplete="tel" />
+        </div>
+
+        <div class="field">
+          <label for="createAge">Age <span style="color:var(--error)">*</span></label>
+          <input type="number" id="createAge" placeholder="e.g. 35" min="1" max="120" />
+        </div>
+
+        <div class="section-divider"><span>For booking session only — no account created</span></div>
+
+        <button type="button" class="btn btn-amber" id="btnContinue">
+          <div class="spinner" id="continueSpinner" style="border-top-color:#fff;border-color:rgba(255,255,255,.3);">
+          </div>
+          <span id="continueBtnText">Continue to Booking →</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- STEP 1b – Patient Selection (multiple matches) -->
+    <div id="selectionSection" class="hidden">
+      <div class="card">
+        <div class="card-title">👥 Select Your Profile</div>
+        <p class="sel-heading" id="selHeading"></p>
+        <div id="patientList"></div>
+      </div>
+    </div>
+
+    <!-- STEP 2 – Booking (hidden until patient selected) -->
+    <div id="bookingSection" class="hidden">
+
+      <!-- Patient info -->
+      <div class="patient-box" id="patientBox">
+        <div class="p-name" id="pName"></div>
+        <div class="p-meta">
+          <span>📞 <span id="pPhone"></span></span>
+          <span id="pAgeWrap" class="hidden">🎂 Age: <span id="pAge"></span></span>
+        </div>
+      </div>
+
+      <!-- Booking card -->
+      <div class="card">
+        <div class="card-title">📅 Confirm Appointment</div>
+
+        <div id="bookingAlert"></div>
+
+        <!-- Auto date & time display -->
+        <div class="datetime-row">
+          <div class="dt-box">
+            <div class="dt-label">📆 Date</div>
+            <div class="dt-value" id="displayDate">—</div>
+          </div>
+          <div class="dt-box">
+            <div class="dt-label">🕐 Time</div>
+            <div class="dt-value" id="displayTime">—</div>
+          </div>
+        </div>
+
+        <!-- Doctor -->
+        <div class="field">
+          <label for="selectDoctor">Select Doctor *</label>
+          <select id="selectDoctor">
+            <option value="">— Choose a Doctor —</option>
+            <option>Dr. Rajesh Sharma</option>
+            <option>Dr. Priya Mehta</option>
+            <option>Dr. Anil Gupta</option>
+            <option>Dr. Sunita Patel</option>
+            <option>Dr. Vikram Singh</option>
+          </select>
+        </div>
+
+        <hr />
+
+        <button type="button" class="btn btn-success" id="btnConfirm">
+          <div class="spinner" id="confirmSpinner"></div>
+          <span id="confirmBtnText">✓ Confirm Booking</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SUCCESS screen -->
+    <div class="card hidden" id="successScreen">
+      <div class="check-icon">✅</div>
+      <h2>Appointment Booked!</h2>
+      <p>Your appointment has been saved and will appear in the doctor's and receptionist's dashboard.</p>
+      <div class="summary-box" id="summaryBox"></div>
+      <button type="button" class="btn-reset" id="btnReset">Book Another Appointment</button>
+    </div>
+
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <script>
+    /* ── Firebase init ── */
+    firebase.initializeApp({
+      apiKey: "AIzaSyBZ4sKYQfUimosgnZnlWRoS8qi69P4Z6Lc",
+      authDomain: "clinicbook-9e723.firebaseapp.com",
+      databaseURL: "https://clinicbook-9e723-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "clinicbook-9e723",
+      storageBucket: "clinicbook-9e723.firebasestorage.app"
+    });
+    const db = firebase.database();
+    const auth = firebase.auth();
+
+    /* ── State ── */
+    let foundPatient = null;   // the finally selected patient
+    let isAuthed = false;
+    let autoDate = '';     // "dd/MM/yyyy"
+    let autoTime = '';     // "hh:mm AM/PM"
+
+    /* ── Silent anonymous auth ── */
+    async function ensureAuth() {
+      if (isAuthed) return true;
+      try {
+        await auth.signInAnonymously();
+        isAuthed = true;
+        return true;
+      } catch (e) { return false; }
+    }
+
+    /* ── Helpers ── */
+    function showAlert(id, type, msg) {
+      const icons = { error: '⚠️', success: '✅', info: '🔄' };
+      document.getElementById(id).innerHTML =
+        `<div class="alert alert-${type}">${icons[type] || ''} ${msg}</div>`;
+    }
+    function clearAlert(id) { document.getElementById(id).innerHTML = ''; }
+
+    function setLoading(btnId, spinnerId, textId, on) {
+      document.getElementById(btnId).disabled = on;
+      document.getElementById(spinnerId).style.display = on ? 'block' : 'none';
+      document.getElementById(textId).style.visibility = on ? 'hidden' : 'visible';
+    }
+
+    /* Build display strings from current system time */
+    function buildDateTime() {
+      const now = new Date();
+      const dd = String(now.getDate()).padStart(2, '0');
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const yyyy = now.getFullYear();
+      autoDate = `${dd}/${mm}/${yyyy}`;
+
+      let h = now.getHours();
+      const min = String(now.getMinutes()).padStart(2, '0');
+      const ampm = h < 12 ? 'AM' : 'PM';
+      h = h % 12 || 12;
+      autoTime = `${String(h).padStart(2, '0')}:${min} ${ampm}`;
+    }
+
+    /* ── Mode toggle ── */
+    function setMode(mode) {
+      const isNew = mode === 'new';
+      document.getElementById('btnModeExisting').classList.toggle('active', !isNew);
+      document.getElementById('btnModeNew').classList.toggle('active', isNew);
+      document.getElementById('existingPatientPanel').classList.toggle('hidden', isNew);
+      document.getElementById('newPatientPanel').classList.toggle('hidden', !isNew);
+      // Clear alerts and not-found prompt when switching
+      clearAlert('searchAlert');
+      clearAlert('createAlert');
+      document.getElementById('notFoundPrompt').classList.add('hidden');
+      // Pre-fill phone in new-patient panel from whatever was typed in search
+      if (isNew) {
+        const existingPhone = document.getElementById('inputPhone').value.trim();
+        if (existingPhone) document.getElementById('createPhone').value = existingPhone;
+        document.getElementById('createName').focus();
+      }
+    }
+
+    /* ── STEP 1 – Search by phone ── */
+    document.getElementById('btnSearch').addEventListener('click', searchPatient);
+    document.getElementById('inputPhone').addEventListener('keydown', e => {
+      if (e.key === 'Enter') searchPatient();
+    });
+
+    async function searchPatient() {
+      clearAlert('searchAlert');
+      document.getElementById('notFoundPrompt').classList.add('hidden');
+      const phone = document.getElementById('inputPhone').value.trim();
+
+      if (!phone) {
+        showAlert('searchAlert', 'error', 'Please enter your phone number.');
+        return;
+      }
+
+      setLoading('btnSearch', 'searchSpinner', 'searchBtnText', true);
+
+      const authed = await ensureAuth();
+      if (!authed) {
+        showAlert('searchAlert', 'error', 'Cannot connect to database. Try again.');
+        setLoading('btnSearch', 'searchSpinner', 'searchBtnText', false);
+        return;
+      }
+
+      try {
+        const snap = await db.ref('patients').once('value');
+        const matches = [];
+        snap.forEach(child => {
+          const p = child.val();
+          if (p.phone && p.phone.trim() === phone) { matches.push(p); }
+        });
+
+        if (matches.length === 0) {
+          // Show inline "switch to New Patient" prompt
+          document.getElementById('notFoundPrompt').classList.remove('hidden');
+        } else if (matches.length === 1) {
+          foundPatient = matches[0];
+          openBookingSection();
+        } else {
+          showPatientSelection(matches);
+        }
+      } catch (err) {
+        showAlert('searchAlert', 'error', 'Error: ' + err.message);
+      }
+
+      setLoading('btnSearch', 'searchSpinner', 'searchBtnText', false);
+    }
+
+    /* ── "Continue to Booking" handler (New Patient panel) ── */
+    document.getElementById('btnContinue').addEventListener('click', async () => {
+      clearAlert('createAlert');
+      const name = document.getElementById('createName').value.trim();
+      const phone = document.getElementById('createPhone').value.trim();
+      const age = document.getElementById('createAge').value.trim();
+
+      /* ── Validation ── */
+      if (!name) {
+        showAlert('createAlert', 'error', 'Please enter your full name.');
+        document.getElementById('createName').focus();
+        return;
+      }
+      if (!phone) {
+        showAlert('createAlert', 'error', 'Please enter your phone number.');
+        document.getElementById('createPhone').focus();
+        return;
+      }
+      if (!age || isNaN(age) || +age < 1 || +age > 120) {
+        showAlert('createAlert', 'error', 'Please enter a valid age (1–120).');
+        document.getElementById('createAge').focus();
+        return;
+      }
+
+      /* ── Ensure Firebase auth ── */
+      setLoading('btnContinue', 'continueSpinner', 'continueBtnText', true);
+      const authed = await ensureAuth();
+      if (!authed) {
+        showAlert('createAlert', 'error', 'Cannot connect. Please try again.');
+        setLoading('btnContinue', 'continueSpinner', 'continueBtnText', false);
+        return;
+      }
+
+      /* ── Persist new patient to Firebase patients/ ── */
+      try {
+        const patientRef = db.ref('patients').push();
+        const newPatient = {
+          id: patientRef.key,
+          name: name,
+          phone: phone,
+          age: age,
+          createdAt: Date.now(),
+          source: 'self-booking'   // helps dashboards distinguish walk-in vs self-registered
+        };
+        await patientRef.set(newPatient);
+
+        /* ── Hand off to booking section with real patient_id ── */
+        foundPatient = newPatient;
+        showAlert('createAlert', 'success', 'Profile saved! Proceeding to booking…');
+        setTimeout(() => openBookingSection(), 800);
+
+      } catch (err) {
+        showAlert('createAlert', 'error', 'Could not save patient: ' + err.message);
+        setLoading('btnContinue', 'continueSpinner', 'continueBtnText', false);
+      }
+    });
+
+    /* ── Show patient-selection list (multiple matches) ── */
+    function showPatientSelection(patients) {
+      document.getElementById('selHeading').innerHTML =
+        `Found <strong>${patients.length} profiles</strong> with this phone number.<br>Please select the correct one.`;
+
+      const list = document.getElementById('patientList');
+      list.innerHTML = '';
+      patients.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'patient-select-card';
+        card.innerHTML = `
+      <div class="ps-info">
+        <div class="ps-name">${p.name || '—'}</div>
+        <div class="ps-meta">
+          <span>📞 ${p.phone || '—'}</span>
+          ${p.age ? `<span>🎂 Age: ${p.age}</span>` : ''}
+        </div>
+      </div>
+      <div class="ps-arrow">›</div>`;
+        card.addEventListener('click', () => {
+          foundPatient = p;
+          document.getElementById('selectionSection').classList.add('hidden');
+          openBookingSection();
+        });
+        list.appendChild(card);
+      });
+
+      document.getElementById('selectionSection').classList.remove('hidden');
+      document.getElementById('selectionSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ── Show booking section ── */
+    function openBookingSection() {
+      buildDateTime();
+
+      document.getElementById('pName').textContent = foundPatient.name || '—';
+      document.getElementById('pPhone').textContent = foundPatient.phone || '—';
+
+      if (foundPatient.age) {
+        document.getElementById('pAge').textContent = foundPatient.age;
+        document.getElementById('pAgeWrap').classList.remove('hidden');
+      } else {
+        document.getElementById('pAgeWrap').classList.add('hidden');
+      }
+
+      document.getElementById('displayDate').textContent = autoDate;
+      document.getElementById('displayTime').textContent = autoTime;
+
+      document.getElementById('bookingSection').classList.remove('hidden');
+      document.getElementById('bookingSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ── STEP 2 – Confirm booking ── */
+    document.getElementById('btnConfirm').addEventListener('click', confirmBooking);
+
+    async function confirmBooking() {
+      clearAlert('bookingAlert');
+
+      const doctor = document.getElementById('selectDoctor').value;
+      if (!doctor) {
+        showAlert('bookingAlert', 'error', 'Please select a doctor before confirming.');
+        return;
+      }
+
+      /* Refresh date/time at the moment of submission */
+      buildDateTime();
+
+      setLoading('btnConfirm', 'confirmSpinner', 'confirmBtnText', true);
+
+      const ref = db.ref('appointments').push();
+      const appointment = {
+        id: ref.key,
+        patientId: foundPatient.id || '',
+        patientName: foundPatient.name || '',
+        patientPhone: foundPatient.phone || '',
+        doctorName: doctor,
+        date: autoDate,
+        time: autoTime,
+        status: 'pending',
+        nextVisitDate: '',
+        createdAt: Date.now()
+      };
+
+      try {
+        await ref.set(appointment);
+        /* Reset form fields so a second booking can be made immediately */
+        document.getElementById('selectDoctor').value = '';
+        showSuccess(appointment);
+      } catch (err) {
+        showAlert('bookingAlert', 'error', 'Booking failed: ' + err.message);
+      } finally {
+        /* ALWAYS re-enable the button — success OR failure */
+        setLoading('btnConfirm', 'confirmSpinner', 'confirmBtnText', false);
+      }
+    }
+
+    /* ── Success screen ── */
+    function showSuccess(appt) {
+      document.getElementById('searchCard').classList.add('hidden');
+      document.getElementById('selectionSection').classList.add('hidden');
+      document.getElementById('bookingSection').classList.add('hidden');
+
+      const rows = [
+        ['Patient', appt.patientName],
+        ['Phone', appt.patientPhone],
+        ['Doctor', appt.doctorName],
+        ['Date', appt.date],
+        ['Time', appt.time],
+        ['Status', '🟡 Pending']
+      ];
+      document.getElementById('summaryBox').innerHTML = rows.map(([l, v]) =>
+        `<div class="summary-row">
+       <span class="sr-label">${l}</span>
+       <span class="sr-value">${v}</span>
+     </div>`
+      ).join('');
+
+      const ss = document.getElementById('successScreen');
+      ss.classList.remove('hidden');
+      ss.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ── Reset ── */
+    document.getElementById('btnReset').addEventListener('click', () => {
+      foundPatient = null;
+      // Clear all inputs
+      document.getElementById('inputPhone').value = '';
+      document.getElementById('selectDoctor').value = '';
+      document.getElementById('createName').value = '';
+      document.getElementById('createAge').value = '';
+      document.getElementById('createPhone').value = '';
+      // Clear all alerts
+      clearAlert('searchAlert');
+      clearAlert('bookingAlert');
+      clearAlert('createAlert');
+      // Reset not-found prompt
+      document.getElementById('notFoundPrompt').classList.add('hidden');
+      // Reset mode to Existing Patient
+      setMode('existing');
+      // Hide all secondary sections
+      document.getElementById('selectionSection').classList.add('hidden');
+      document.getElementById('bookingSection').classList.add('hidden');
+      document.getElementById('successScreen').classList.add('hidden');
+      document.getElementById('pAgeWrap').classList.add('hidden');
+      // Show search card
+      document.getElementById('searchCard').classList.remove('hidden');
+      document.getElementById('patientList').innerHTML = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+
+</html>

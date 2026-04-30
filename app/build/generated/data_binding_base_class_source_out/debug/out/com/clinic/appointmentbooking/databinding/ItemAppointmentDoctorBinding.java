@@ -13,6 +13,7 @@ import androidx.viewbinding.ViewBindings;
 import com.clinic.appointmentbooking.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.ChipGroup;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -22,10 +23,19 @@ public final class ItemAppointmentDoctorBinding implements ViewBinding {
   private final MaterialCardView rootView;
 
   @NonNull
+  public final MaterialButton btnAddInstructions;
+
+  @NonNull
   public final MaterialButton btnMarkCompleted;
 
   @NonNull
   public final MaterialButton btnSetNextVisit;
+
+  @NonNull
+  public final ChipGroup chipGroupInstructions;
+
+  @NonNull
+  public final LinearLayout layoutInstructions;
 
   @NonNull
   public final LinearLayout layoutNextVisit;
@@ -49,13 +59,17 @@ public final class ItemAppointmentDoctorBinding implements ViewBinding {
   public final TextView tvTime;
 
   private ItemAppointmentDoctorBinding(@NonNull MaterialCardView rootView,
-      @NonNull MaterialButton btnMarkCompleted, @NonNull MaterialButton btnSetNextVisit,
-      @NonNull LinearLayout layoutNextVisit, @NonNull TextView tvDoctor,
-      @NonNull TextView tvNextVisit, @NonNull TextView tvPatientName,
+      @NonNull MaterialButton btnAddInstructions, @NonNull MaterialButton btnMarkCompleted,
+      @NonNull MaterialButton btnSetNextVisit, @NonNull ChipGroup chipGroupInstructions,
+      @NonNull LinearLayout layoutInstructions, @NonNull LinearLayout layoutNextVisit,
+      @NonNull TextView tvDoctor, @NonNull TextView tvNextVisit, @NonNull TextView tvPatientName,
       @NonNull TextView tvPatientPhone, @NonNull TextView tvStatus, @NonNull TextView tvTime) {
     this.rootView = rootView;
+    this.btnAddInstructions = btnAddInstructions;
     this.btnMarkCompleted = btnMarkCompleted;
     this.btnSetNextVisit = btnSetNextVisit;
+    this.chipGroupInstructions = chipGroupInstructions;
+    this.layoutInstructions = layoutInstructions;
     this.layoutNextVisit = layoutNextVisit;
     this.tvDoctor = tvDoctor;
     this.tvNextVisit = tvNextVisit;
@@ -92,6 +106,12 @@ public final class ItemAppointmentDoctorBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.btnAddInstructions;
+      MaterialButton btnAddInstructions = ViewBindings.findChildViewById(rootView, id);
+      if (btnAddInstructions == null) {
+        break missingId;
+      }
+
       id = R.id.btnMarkCompleted;
       MaterialButton btnMarkCompleted = ViewBindings.findChildViewById(rootView, id);
       if (btnMarkCompleted == null) {
@@ -101,6 +121,18 @@ public final class ItemAppointmentDoctorBinding implements ViewBinding {
       id = R.id.btnSetNextVisit;
       MaterialButton btnSetNextVisit = ViewBindings.findChildViewById(rootView, id);
       if (btnSetNextVisit == null) {
+        break missingId;
+      }
+
+      id = R.id.chipGroupInstructions;
+      ChipGroup chipGroupInstructions = ViewBindings.findChildViewById(rootView, id);
+      if (chipGroupInstructions == null) {
+        break missingId;
+      }
+
+      id = R.id.layoutInstructions;
+      LinearLayout layoutInstructions = ViewBindings.findChildViewById(rootView, id);
+      if (layoutInstructions == null) {
         break missingId;
       }
 
@@ -146,9 +178,9 @@ public final class ItemAppointmentDoctorBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemAppointmentDoctorBinding((MaterialCardView) rootView, btnMarkCompleted,
-          btnSetNextVisit, layoutNextVisit, tvDoctor, tvNextVisit, tvPatientName, tvPatientPhone,
-          tvStatus, tvTime);
+      return new ItemAppointmentDoctorBinding((MaterialCardView) rootView, btnAddInstructions,
+          btnMarkCompleted, btnSetNextVisit, chipGroupInstructions, layoutInstructions,
+          layoutNextVisit, tvDoctor, tvNextVisit, tvPatientName, tvPatientPhone, tvStatus, tvTime);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -159,9 +159,10 @@ object ReportGenerator {
         pdfDoc.finishPage(page)
 
         // ── Save to Downloads ────────────────────────────────────────────
+        val ts = SimpleDateFormat("yyyyMMdd_HHmm", Locale.getDefault()).format(now.time)
         val fileName = when (type) {
-            ReportType.TODAY -> "today-report.pdf"
-            ReportType.MONTH -> "month-report.pdf"
+            ReportType.TODAY -> "report-today-$ts.pdf"
+            ReportType.MONTH -> "report-month-$ts.pdf"
         }
 
         val outputFile = saveToDownloads(context, pdfDoc, fileName)
@@ -296,8 +297,9 @@ object ReportGenerator {
 
     /** Draws one patient appointment row. Returns next Y. */
     private fun drawPatientRow(canvas: Canvas, y: Float, serial: Int, appt: Appointment): Float {
-        val rowH     = 74f
-        val rowRect  = RectF(MARGIN, y, PAGE_WIDTH - MARGIN, y + rowH - 6f)
+        val instrList = appt.instructionList()
+        val rowH      = if (instrList.isNotEmpty()) 94f else 74f
+        val rowRect   = RectF(MARGIN, y, PAGE_WIDTH - MARGIN, y + rowH - 6f)
         canvas.drawRoundRect(rowRect, 8f, 8f, fillPaint(COLOR_BG_LIGHT))
 
         val innerY   = y + 14f
@@ -324,12 +326,22 @@ object ReportGenerator {
         canvas.drawRoundRect(chipRect, 5f, 5f, fillPaint(statusBg))
         canvas.drawText(statusText, chipRect.left + 7f, innerY + 33f, statusPaint)
 
+        // ── Instructions ─────────────────────────────────────────────────
+        if (instrList.isNotEmpty()) {
+            val instrLabel     = "Instructions: "
+            val instrLblPaint  = boldPaint(8.5f, COLOR_TEXT_HINT)
+            val instrValPaint  = regularPaint(8.5f, COLOR_PRIMARY)
+            val instrText      = instrList.joinToString("  •  ")
+            canvas.drawText(instrLabel, MARGIN + 34f, innerY + 53f, instrLblPaint)
+            canvas.drawText(instrText,  MARGIN + 34f + instrLblPaint.measureText(instrLabel), innerY + 53f, instrValPaint)
+        }
+
         // Next visit
-        val visitText  = formatNextVisit(appt.nextVisitDate)
-        val visitPaint = regularPaint(9f, COLOR_TEXT_HINT)
-        val visitLabel = "Next Visit: "
-        val visitLblPaint = boldPaint(9f, COLOR_TEXT_HINT)
-        val visitX     = PAGE_WIDTH - MARGIN - visitPaint.measureText(visitText) - 12f
+        val visitText      = formatNextVisit(appt.nextVisitDate)
+        val visitPaint     = regularPaint(9f, COLOR_TEXT_HINT)
+        val visitLabel     = "Next Visit: "
+        val visitLblPaint  = boldPaint(9f, COLOR_TEXT_HINT)
+        val visitX         = PAGE_WIDTH - MARGIN - visitPaint.measureText(visitText) - 12f
         canvas.drawText(visitLabel, visitX - visitLblPaint.measureText(visitLabel), innerY + 17f, visitLblPaint)
         canvas.drawText(visitText,  visitX, innerY + 17f, visitPaint)
 

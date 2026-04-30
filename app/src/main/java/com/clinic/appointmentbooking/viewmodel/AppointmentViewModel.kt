@@ -1,6 +1,7 @@
 package com.clinic.appointmentbooking.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,6 +37,9 @@ class AppointmentViewModel : ViewModel() {
 
     private val _updateNextVisitState = MutableLiveData<Resource<Unit>>()
     val updateNextVisitState: LiveData<Resource<Unit>> = _updateNextVisitState
+
+    private val _updateInstructionsState = MutableLiveData<Resource<Unit>>()
+    val updateInstructionsState: LiveData<Resource<Unit>> = _updateInstructionsState
 
     // ────── Patients ──────────────────────────────────────────────────────────
 
@@ -179,17 +183,45 @@ class AppointmentViewModel : ViewModel() {
         }
     }
 
+    fun updateInstructions(appointmentId: String, instructions: List<String>) {
+        if (appointmentId.isBlank()) {
+            _updateInstructionsState.value = Resource.Error("Invalid appointment ID")
+            return
+        }
+        _updateInstructionsState.value = Resource.Loading
+        viewModelScope.launch {
+            val result = repository.updateInstructions(appointmentId, instructions)
+            _updateInstructionsState.postValue(result)
+        }
+    }
+
     fun resetAddState() { _addAppointmentState.value = null }
     fun resetUpdateState() { _updateStatusState.value = null }
     fun resetNextVisitState() { _updateNextVisitState.value = null }
     fun resetAddPatientState() { _addPatientState.value = null }
     fun resetReportState() { _reportState.value = null }
+    fun resetInstructionsState() { _updateInstructionsState.value = null }
 
     // ────── PDF Report Generation ──────────────────────────────────────────────
 
-    fun generateTodayReport(context: Context, appointments: List<Appointment>) {
+    fun generateTodayReport(context: Context, fallbackAppointments: List<Appointment>) {
         _reportState.value = Resource.Loading
         viewModelScope.launch {
+            // Always fetch the freshest data from Firebase before building the PDF
+            Log.d("ReportData", "► generateTodayReport(): requesting fresh data from Firebase…")
+            val freshResult = repository.getFreshAppointments()
+            val appointments = when (freshResult) {
+                is Resource.Success -> {
+                    Log.d("ReportData", "✅ Using FRESH data: ${freshResult.data.size} appointments")
+                    freshResult.data
+                }
+                else -> {
+                    Log.w("ReportData", "⚠️ Fresh fetch failed — falling back to cached ${fallbackAppointments.size} appointments")
+                    fallbackAppointments
+                }
+            }
+            Log.d("ReportData", "  Appointments with instructions: " +
+                "${appointments.count { it.instructionList().isNotEmpty() }}")
             val result = withContext(Dispatchers.IO) {
                 ReportGenerator.generate(context, appointments, ReportType.TODAY)
             }
@@ -200,9 +232,24 @@ class AppointmentViewModel : ViewModel() {
         }
     }
 
-    fun generateMonthReport(context: Context, appointments: List<Appointment>) {
+    fun generateMonthReport(context: Context, fallbackAppointments: List<Appointment>) {
         _reportState.value = Resource.Loading
         viewModelScope.launch {
+            // Always fetch the freshest data from Firebase before building the PDF
+            Log.d("ReportData", "► generateMonthReport(): requesting fresh data from Firebase…")
+            val freshResult = repository.getFreshAppointments()
+            val appointments = when (freshResult) {
+                is Resource.Success -> {
+                    Log.d("ReportData", "✅ Using FRESH data: ${freshResult.data.size} appointments")
+                    freshResult.data
+                }
+                else -> {
+                    Log.w("ReportData", "⚠️ Fresh fetch failed — falling back to cached ${fallbackAppointments.size} appointments")
+                    fallbackAppointments
+                }
+            }
+            Log.d("ReportData", "  Appointments with instructions: " +
+                "${appointments.count { it.instructionList().isNotEmpty() }}")
             val result = withContext(Dispatchers.IO) {
                 ReportGenerator.generate(context, appointments, ReportType.MONTH)
             }

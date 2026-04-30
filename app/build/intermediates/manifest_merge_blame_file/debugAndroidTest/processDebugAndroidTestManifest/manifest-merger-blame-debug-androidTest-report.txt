@@ -3,24 +3,24 @@
 3    package="com.clinic.appointmentBooking.test" >
 4
 5    <uses-sdk
-5-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2854487858440704479.xml:5:5-74
+5-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2646880051228600097.xml:5:5-74
 6        android:minSdkVersion="24"
-6-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2854487858440704479.xml:5:15-41
+6-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2646880051228600097.xml:5:15-41
 7        android:targetSdkVersion="34" />
-7-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2854487858440704479.xml:5:42-71
+7-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2646880051228600097.xml:5:42-71
 8
 9    <instrumentation
-9-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2854487858440704479.xml:7:5-11:79
+9-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2646880051228600097.xml:7:5-11:79
 10        android:name="androidx.test.runner.AndroidJUnitRunner"
-10-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2854487858440704479.xml:7:22-76
+10-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2646880051228600097.xml:7:22-76
 11        android:functionalTest="false"
-11-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2854487858440704479.xml:10:22-52
+11-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2646880051228600097.xml:10:22-52
 12        android:handleProfiling="false"
-12-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2854487858440704479.xml:9:22-53
+12-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2646880051228600097.xml:9:22-53
 13        android:label="Tests for com.clinic.appointmentBooking"
-13-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2854487858440704479.xml:11:22-77
+13-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2646880051228600097.xml:11:22-77
 14        android:targetPackage="com.clinic.appointmentBooking" />
-14-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2854487858440704479.xml:8:22-75
+14-->/Users/rohan/Documents/Java/Antigravity/AppointmentBooking/app/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest2646880051228600097.xml:8:22-75
 15
 16    <uses-permission android:name="android.permission.REORDER_TASKS" />
 16-->[androidx.test:core:1.5.0] /Users/rohan/.gradle/caches/9.3.1/transforms/0bcad687e325298dd20d6028b6cdf33d/transformed/jetified-core-1.5.0/AndroidManifest.xml:24:5-72

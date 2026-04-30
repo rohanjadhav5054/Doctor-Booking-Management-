@@ -101,9 +101,12 @@ class DoctorDashboardActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         appointmentAdapter = DoctorAppointmentAdapter(
-            onMarkCompleted = { appointment -> markAsCompleted(appointment) },
-            onSetNextVisit  = { appointment -> showNextVisitPicker(appointment) },
-            onPatientClick  = { appointment -> openPatientDetails(appointment) }
+            onMarkCompleted      = { appointment -> markAsCompleted(appointment) },
+            onSetNextVisit       = { appointment -> showNextVisitPicker(appointment) },
+            onPatientClick       = { appointment -> openPatientDetails(appointment) },
+            onUpdateInstructions = { appointment, instructions ->
+                appointmentViewModel.updateInstructions(appointment.id, instructions)
+            }
         )
         binding.rvAppointments.apply {
             layoutManager = LinearLayoutManager(this@DoctorDashboardActivity)
@@ -275,6 +278,20 @@ class DoctorDashboardActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     Toast.makeText(this, resource.message, Toast.LENGTH_LONG).show()
                     appointmentViewModel.resetNextVisitState()
+                }
+                else -> {}
+            }
+        }
+
+        appointmentViewModel.updateInstructionsState.observe(this) { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    Toast.makeText(this, "📋 Instructions saved!", Toast.LENGTH_SHORT).show()
+                    appointmentViewModel.resetInstructionsState()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(this, resource.message, Toast.LENGTH_LONG).show()
+                    appointmentViewModel.resetInstructionsState()
                 }
                 else -> {}
             }

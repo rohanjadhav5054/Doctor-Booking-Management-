@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.clinic.appointmentbooking.R
 import com.clinic.appointmentbooking.databinding.ItemAppointmentReceptionistBinding
 import com.clinic.appointmentbooking.model.Appointment
+import com.google.android.material.chip.Chip
 
 class ReceptionistAppointmentAdapter(
     private val onRebook: (Appointment) -> Unit = {}
@@ -24,7 +25,6 @@ class ReceptionistAppointmentAdapter(
 
             // ── Basic info ────────────────────────────────────────────────
             binding.tvPatientName.text = appointment.patientName
-            // Avoid "Dr. Dr." if doctorName already includes the prefix
             val docName = appointment.doctorName.trim()
             binding.tvDoctor.text = if (docName.startsWith("Dr.", ignoreCase = true)) docName else "Dr. $docName"
             binding.tvDateTime.text    = "${appointment.date}  •  ${appointment.time}"
@@ -48,6 +48,27 @@ class ReceptionistAppointmentAdapter(
                 binding.btnRebook.setOnClickListener { onRebook(appointment) }
             } else {
                 binding.layoutNextVisitRow.visibility = View.GONE
+            }
+
+            // ── Instructions (read-only) ──────────────────────────────────
+            val instrList = appointment.instructionList()
+            if (instrList.isNotEmpty()) {
+                binding.layoutInstructions.visibility = View.VISIBLE
+                binding.chipGroupInstructions.removeAllViews()
+                instrList.forEach { label ->
+                    val chip = Chip(ctx).apply {
+                        text = label
+                        isClickable = false
+                        isCheckable = false
+                        chipBackgroundColor =
+                            ContextCompat.getColorStateList(ctx, R.color.primary_light_selector)
+                        setTextColor(ContextCompat.getColor(ctx, R.color.primary))
+                    }
+                    binding.chipGroupInstructions.addView(chip)
+                }
+            } else {
+                binding.layoutInstructions.visibility = View.GONE
+                binding.chipGroupInstructions.removeAllViews()
             }
         }
     }
