@@ -1,4 +1,4 @@
-package com.clinic.appointmentbooking.viewmodel
+package com.clinic.appointmentBooking.viewmodel
 
 import android.content.Context
 import android.util.Log
@@ -6,14 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.clinic.appointmentbooking.model.Appointment
-import com.clinic.appointmentbooking.model.Patient
-import com.clinic.appointmentbooking.repository.FirebaseRepository
-import com.clinic.appointmentbooking.util.ReportGenerator
-import com.clinic.appointmentbooking.util.ReportType
-import com.clinic.appointmentbooking.util.Resource
+import com.clinic.appointmentBooking.model.Appointment
+import com.clinic.appointmentBooking.model.Patient
+import com.clinic.appointmentBooking.repository.FirebaseRepository
+import com.clinic.appointmentBooking.util.ReportGenerator
+import com.clinic.appointmentBooking.util.ReportType
+import com.clinic.appointmentBooking.util.Resource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
+// kotlinx.coroutines.flow.collect terminal operator is available without an explicit import
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -29,25 +29,34 @@ class AppointmentViewModel : ViewModel() {
     private val _appointments = MutableLiveData<Resource<List<Appointment>>>()
     val appointments: LiveData<Resource<List<Appointment>>> = _appointments
 
-    private val _addAppointmentState = MutableLiveData<Resource<Unit>>()
-    val addAppointmentState: LiveData<Resource<Unit>> = _addAppointmentState
+    private val _addAppointmentState = MutableLiveData<Resource<Unit>?>()
+    val addAppointmentState: LiveData<Resource<Unit>?> = _addAppointmentState
 
-    private val _updateStatusState = MutableLiveData<Resource<Unit>>()
-    val updateStatusState: LiveData<Resource<Unit>> = _updateStatusState
+    private val _updateStatusState = MutableLiveData<Resource<Unit>?>()
+    val updateStatusState: LiveData<Resource<Unit>?> = _updateStatusState
 
-    private val _updateNextVisitState = MutableLiveData<Resource<Unit>>()
-    val updateNextVisitState: LiveData<Resource<Unit>> = _updateNextVisitState
+    private val _updateNextVisitState = MutableLiveData<Resource<Unit>?>()
+    val updateNextVisitState: LiveData<Resource<Unit>?> = _updateNextVisitState
 
-    private val _updateInstructionsState = MutableLiveData<Resource<Unit>>()
-    val updateInstructionsState: LiveData<Resource<Unit>> = _updateInstructionsState
+    private val _updateInstructionsState = MutableLiveData<Resource<Unit>?>()
+    val updateInstructionsState: LiveData<Resource<Unit>?> = _updateInstructionsState
 
     // ────── Patients ──────────────────────────────────────────────────────────
 
     private val _patients = MutableLiveData<Resource<List<Patient>>>()
     val patients: LiveData<Resource<List<Patient>>> = _patients
 
-    private val _addPatientState = MutableLiveData<Resource<String>>()
-    val addPatientState: LiveData<Resource<String>> = _addPatientState
+    private val _addPatientState = MutableLiveData<Resource<String>?>()
+    val addPatientState: LiveData<Resource<String>?> = _addPatientState
+
+    private val _updatePatientState = MutableLiveData<Resource<Unit>?>()
+    val updatePatientState: LiveData<Resource<Unit>?> = _updatePatientState
+
+    private val _deletePatientState = MutableLiveData<Resource<Unit>?>()
+    val deletePatientState: LiveData<Resource<Unit>?> = _deletePatientState
+
+    private val _patientCount = MutableLiveData<Int>(0)
+    val patientCount: LiveData<Int> = _patientCount
 
     // ────── Reports ───────────────────────────────────────────────────────────
 
@@ -57,19 +66,24 @@ class AppointmentViewModel : ViewModel() {
     private val _monthlyCount = MutableLiveData<Int>(0)
     val monthlyCount: LiveData<Int> = _monthlyCount
 
-    private val _reportState = MutableLiveData<Resource<File>>()
-    val reportState: LiveData<Resource<File>> = _reportState
+    private val _reportState = MutableLiveData<Resource<File>?>()
+    val reportState: LiveData<Resource<File>?> = _reportState
 
     // Start real-time listener for appointments
     fun startListeningToAppointments() {
         _appointments.value = Resource.Loading
         viewModelScope.launch {
-            repository.getAppointmentsFlow().collect { result ->
-                _appointments.postValue(result)
-                // Compute report counts whenever data changes
-                if (result is Resource.Success) {
-                    computeReports(result.data)
+            try {
+                repository.getAppointmentsFlow().collect { result ->
+                    _appointments.postValue(result)
+                    // Compute report counts whenever data changes
+                    if (result is Resource.Success) {
+                        computeReports(result.data)
+                    }
                 }
+            } catch (e: Exception) {
+                Log.e("AppointmentVM", "Appointments flow error: ${e.message}", e)
+                _appointments.postValue(Resource.Error(e.message ?: "Failed to load appointments"))
             }
         }
     }
@@ -78,8 +92,16 @@ class AppointmentViewModel : ViewModel() {
     fun startListeningToPatients() {
         _patients.value = Resource.Loading
         viewModelScope.launch {
-            repository.getPatientsFlow().collect { result ->
-                _patients.postValue(result)
+            try {
+                repository.getPatientsFlow().collect { result ->
+                    _patients.postValue(result)
+                    if (result is Resource.Success) {
+                        _patientCount.postValue(result.data.size)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("AppointmentVM", "Patients flow error: ${e.message}", e)
+                _patients.postValue(Resource.Error(e.message ?: "Failed to load patients"))
             }
         }
     }
@@ -201,6 +223,32 @@ class AppointmentViewModel : ViewModel() {
     fun resetAddPatientState() { _addPatientState.value = null }
     fun resetReportState() { _reportState.value = null }
     fun resetInstructionsState() { _updateInstructionsState.value = null }
+    fun resetUpdatePatientState() { _updatePatientState.value = null }
+    fun resetDeletePatientState() { _deletePatientState.value = null }
+
+    fun updatePatient(patient: Patient) {
+        if (patient.id.isBlank()) {
+            _updatePatientState.value = Resource.Error("Invalid patient ID")
+            return
+        }
+        _updatePatientState.value = Resource.Loading
+        viewModelScope.launch {
+            val result = repository.updatePatient(patient)
+            _updatePatientState.postValue(result)
+        }
+    }
+
+    fun deletePatient(patientId: String) {
+        if (patientId.isBlank()) {
+            _deletePatientState.value = Resource.Error("Invalid patient ID")
+            return
+        }
+        _deletePatientState.value = Resource.Loading
+        viewModelScope.launch {
+            val result = repository.deletePatient(patientId)
+            _deletePatientState.postValue(result)
+        }
+    }
 
     // ────── PDF Report Generation ──────────────────────────────────────────────
 

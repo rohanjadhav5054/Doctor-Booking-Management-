@@ -1,4 +1,4 @@
-package com.clinic.appointmentbooking.view
+package com.clinic.appointmentBooking.view
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -6,17 +6,16 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.clinic.appointmentbooking.R
-import com.clinic.appointmentbooking.adapter.PatientSearchAdapter
-import com.clinic.appointmentbooking.databinding.ActivityBookAppointmentBinding
-import com.clinic.appointmentbooking.model.Patient
-import com.clinic.appointmentbooking.util.Resource
-import com.clinic.appointmentbooking.viewmodel.AppointmentViewModel
+import com.clinic.appointmentBooking.R
+import com.clinic.appointmentBooking.adapter.PatientSearchAdapter
+import com.clinic.appointmentBooking.databinding.ActivityBookAppointmentBinding
+import com.clinic.appointmentBooking.model.Patient
+import com.clinic.appointmentBooking.util.Resource
+import com.clinic.appointmentBooking.viewmodel.AppointmentViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -49,7 +48,7 @@ class BookAppointmentActivity : AppCompatActivity() {
         binding.tvSelectedDate.text = selectedDate
         binding.tvSelectedTime.text = selectedTime
 
-        setupDoctorSpinner()
+        // Doctor is fixed to Dr. Nikhilchandra Mahajan — no spinner setup needed
         setupPatientSearch()
         setupObservers()
         setupClickListeners()
@@ -88,12 +87,7 @@ class BookAppointmentActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupDoctorSpinner() {
-        val doctors = resources.getStringArray(R.array.doctors_list)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, doctors)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerDoctor.adapter = adapter
-    }
+    // Doctor is fixed — no spinner setup required
 
     private fun setupPatientSearch() {
         patientAdapter = PatientSearchAdapter { patient ->
@@ -178,11 +172,8 @@ class BookAppointmentActivity : AppCompatActivity() {
             Toast.makeText(this, "Please select a patient from the list", Toast.LENGTH_SHORT).show()
             return
         }
-        val doctorName = binding.spinnerDoctor.selectedItem?.toString() ?: ""
-        if (doctorName == "Select Doctor" || doctorName.isBlank()) {
-            Toast.makeText(this, "Please select a doctor", Toast.LENGTH_SHORT).show()
-            return
-        }
+        // Doctor is fixed — always Dr. Nikhilchandra Mahajan
+        val doctorName = getString(R.string.doctor_name)
         viewModel.addAppointment(
             patientId = patient.id,
             patientName = patient.name,
@@ -222,7 +213,7 @@ class BookAppointmentActivity : AppCompatActivity() {
 
     private fun setFormEnabled(enabled: Boolean) {
         binding.etPatientSearch.isEnabled = enabled
-        binding.spinnerDoctor.isEnabled = enabled
+        // spinnerDoctor removed — doctor is fixed, no enable/disable needed
         binding.btnBookAppointment.isEnabled = enabled
         binding.progressBar.visibility = if (enabled) View.GONE else View.VISIBLE
     }

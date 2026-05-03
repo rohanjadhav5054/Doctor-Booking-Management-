@@ -1,4 +1,4 @@
-package com.clinic.appointmentbooking.view
+package com.clinic.appointmentBooking.view
 
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -8,10 +8,10 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.clinic.appointmentbooking.R
-import com.clinic.appointmentbooking.databinding.ActivityLoginBinding
-import com.clinic.appointmentbooking.util.Resource
-import com.clinic.appointmentbooking.viewmodel.AuthViewModel
+import com.clinic.appointmentBooking.R
+import com.clinic.appointmentBooking.databinding.ActivityLoginBinding
+import com.clinic.appointmentBooking.util.Resource
+import com.clinic.appointmentBooking.viewmodel.AuthViewModel
 
 class LoginActivity : AppCompatActivity() {
 

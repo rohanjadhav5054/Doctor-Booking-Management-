@@ -1,4 +1,4 @@
-package com.clinic.appointmentbooking.adapter
+package com.clinic.appointmentBooking.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,14 +7,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.clinic.appointmentbooking.R
-import com.clinic.appointmentbooking.databinding.ItemAppointmentDoctorBinding
-import com.clinic.appointmentbooking.model.Appointment
+import com.clinic.appointmentBooking.R
+import com.clinic.appointmentBooking.databinding.ItemAppointmentDoctorBinding
+import com.clinic.appointmentBooking.model.Appointment
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /** All selectable instruction options shown in the dialog. */
-private val INSTRUCTION_OPTIONS = listOf("X-Ray", "Lab", "Blood Test", "ECG", "Physio", "Other")
+private val INSTRUCTION_OPTIONS = listOf("X-Ray", "Lab")
 
 class DoctorAppointmentAdapter(
     private val onMarkCompleted: (Appointment) -> Unit,

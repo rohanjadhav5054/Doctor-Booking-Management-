@@ -1,2 +1,0 @@
-com.clinic.appointmentBooking.test:style/WhiteBackgroundTheme = 0x7f010001
-com.clinic.appointmentBooking.test:style/WhiteBackgroundDialogTheme = 0x7f010000

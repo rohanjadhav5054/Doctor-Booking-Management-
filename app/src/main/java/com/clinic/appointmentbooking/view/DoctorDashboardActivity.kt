@@ -1,4 +1,4 @@
-package com.clinic.appointmentbooking.view
+package com.clinic.appointmentBooking.view
 
 import android.Manifest
 import android.app.DatePickerDialog
@@ -17,13 +17,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.clinic.appointmentbooking.R
-import com.clinic.appointmentbooking.adapter.DoctorAppointmentAdapter
-import com.clinic.appointmentbooking.databinding.ActivityDoctorDashboardBinding
-import com.clinic.appointmentbooking.model.Appointment
-import com.clinic.appointmentbooking.util.Resource
-import com.clinic.appointmentbooking.viewmodel.AppointmentViewModel
-import com.clinic.appointmentbooking.viewmodel.AuthViewModel
+import com.clinic.appointmentBooking.R
+import com.clinic.appointmentBooking.adapter.DoctorAppointmentAdapter
+import com.clinic.appointmentBooking.databinding.ActivityDoctorDashboardBinding
+import com.clinic.appointmentBooking.model.Appointment
+import com.clinic.appointmentBooking.util.Resource
+import com.clinic.appointmentBooking.viewmodel.AppointmentViewModel
+import com.clinic.appointmentBooking.viewmodel.AuthViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.File
 import java.util.Calendar
@@ -78,10 +78,11 @@ class DoctorDashboardActivity : AppCompatActivity() {
         setupObservers()
         setupReportCards()
         appointmentViewModel.startListeningToAppointments()
+
     }
 
     // ── Toolbar overflow menu ────────────────────────────────────────────────
-
+    
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_doctor_toolbar, menu)
         return true

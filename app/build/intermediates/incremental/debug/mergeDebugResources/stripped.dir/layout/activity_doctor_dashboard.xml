@@ -18,9 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/primary"
-            app:title="ClinicBook"
-            app:titleTextColor="@color/white"
-            app:menu="@menu/menu_doctor_toolbar" />
+            app:title="Bhagirati Hospital"
+            app:titleTextColor="@color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

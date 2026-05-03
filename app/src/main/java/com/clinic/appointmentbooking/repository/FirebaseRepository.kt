@@ -1,9 +1,9 @@
-package com.clinic.appointmentbooking.repository
+package com.clinic.appointmentBooking.repository
 
-import com.clinic.appointmentbooking.model.Appointment
-import com.clinic.appointmentbooking.model.Patient
-import com.clinic.appointmentbooking.model.User
-import com.clinic.appointmentbooking.util.Resource
+import com.clinic.appointmentBooking.model.Appointment
+import com.clinic.appointmentBooking.model.Patient
+import com.clinic.appointmentBooking.model.User
+import com.clinic.appointmentBooking.util.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import android.util.Log
@@ -79,6 +79,24 @@ class FirebaseRepository {
         awaitClose { ref.removeEventListener(listener) }
     }
 
+    suspend fun updatePatient(patient: Patient): Resource<Unit> {
+        return try {
+            database.child("patients").child(patient.id).setValue(patient).await()
+            Resource.Success(Unit)
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Failed to update patient")
+        }
+    }
+
+    suspend fun deletePatient(patientId: String): Resource<Unit> {
+        return try {
+            database.child("patients").child(patientId).removeValue().await()
+            Resource.Success(Unit)
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Failed to delete patient")
+        }
+    }
+
     // ─── Appointments ─────────────────────────────────────────────────────────
 
     suspend fun addAppointment(appointment: Appointment): Resource<Unit> {
@@ -92,13 +110,65 @@ class FirebaseRepository {
         }
     }
 
+    /**
+     * Safely deserializes one appointment child from Firebase.
+     *
+     * Older records stored `instructions` as a native JSON array (ArrayList).
+     * Firebase's CustomClassMapper expects a Map and throws DatabaseException
+     * when it finds an ArrayList — crashing the whole app.
+     *
+     * Fix: attempt normal deserialization first; on failure, read each field
+     * individually and convert the `instructions` array to an indexed Map.
+     */
+    private fun safeReadAppointment(child: DataSnapshot): Appointment? {
+        return try {
+            child.getValue(Appointment::class.java)
+        } catch (e: com.google.firebase.database.DatabaseException) {
+            Log.w("FirebaseRepository",
+                "Legacy array-instructions detected for key=${child.key}; converting. (${e.message})")
+            try {
+                // Build an indexed map from the legacy ArrayList
+                val instrNode = child.child("instructions")
+                val instrMap = mutableMapOf<String, String>()
+                instrNode.children.forEachIndexed { i, item ->
+                    val v = item.getValue(String::class.java)
+                    if (!v.isNullOrBlank()) instrMap[i.toString()] = v
+                }
+                // Also handle plain string values stored directly under an index key
+                if (instrMap.isEmpty()) {
+                    instrNode.children.forEach { item ->
+                        val key = item.key ?: return@forEach
+                        val v   = item.getValue(String::class.java)
+                        if (!v.isNullOrBlank()) instrMap[key] = v
+                    }
+                }
+                Appointment(
+                    id            = child.child("id").getValue(String::class.java) ?: "",
+                    patientId     = child.child("patientId").getValue(String::class.java) ?: "",
+                    patientName   = child.child("patientName").getValue(String::class.java) ?: "",
+                    patientPhone  = child.child("patientPhone").getValue(String::class.java) ?: "",
+                    doctorName    = child.child("doctorName").getValue(String::class.java) ?: "",
+                    time          = child.child("time").getValue(String::class.java) ?: "",
+                    date          = child.child("date").getValue(String::class.java) ?: "",
+                    status        = child.child("status").getValue(String::class.java) ?: "pending",
+                    nextVisitDate = child.child("nextVisitDate").getValue(String::class.java) ?: "",
+                    createdAt     = child.child("createdAt").getValue(Long::class.java) ?: System.currentTimeMillis(),
+                    instructions  = instrMap
+                )
+            } catch (inner: Exception) {
+                Log.e("FirebaseRepository", "Could not recover appointment key=${child.key}: ${inner.message}")
+                null
+            }
+        }
+    }
+
     fun getAppointmentsFlow(): Flow<Resource<List<Appointment>>> = callbackFlow {
         val ref = database.child("appointments")
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val list = mutableListOf<Appointment>()
                 for (child in snapshot.children) {
-                    val appt = child.getValue(Appointment::class.java)
+                    val appt = safeReadAppointment(child)  // ← crash-safe read
                     if (appt != null) list.add(appt)
                 }
                 // Sort by createdAt descending
@@ -125,7 +195,7 @@ class FirebaseRepository {
             val snapshot = database.child("appointments").get().await()
             val list = mutableListOf<Appointment>()
             for (child in snapshot.children) {
-                val appt = child.getValue(Appointment::class.java)
+                val appt = safeReadAppointment(child)  // ← crash-safe read
                 if (appt != null) list.add(appt)
             }
             list.sortByDescending { it.createdAt }

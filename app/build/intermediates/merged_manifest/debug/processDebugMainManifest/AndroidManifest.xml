@@ -36,9 +36,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:testOnly="true"
         android:theme="@style/Theme.AppointmentBooking" >
         <activity
-            android:name="com.clinic.appointmentbooking.view.SplashActivity"
+            android:name="com.clinic.appointmentBooking.view.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AppointmentBooking.Splash" >
             <intent-filter>
@@ -48,30 +49,37 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.clinic.appointmentbooking.view.LoginActivity"
+            android:name="com.clinic.appointmentBooking.view.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.clinic.appointmentbooking.view.ReceptionistDashboardActivity"
+            android:name="com.clinic.appointmentBooking.view.ReceptionistDashboardActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.clinic.appointmentbooking.view.DoctorDashboardActivity"
+            android:name="com.clinic.appointmentBooking.view.DoctorDashboardActivity"
             android:exported="false" />
         <activity
-            android:name="com.clinic.appointmentbooking.view.AddPatientActivity"
+            android:name="com.clinic.appointmentBooking.view.AddPatientActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.clinic.appointmentbooking.view.BookAppointmentActivity"
+            android:name="com.clinic.appointmentBooking.view.BookAppointmentActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.clinic.appointmentbooking.view.ViewAppointmentsActivity"
+            android:name="com.clinic.appointmentBooking.view.ViewAppointmentsActivity"
             android:exported="false" />
         <activity
-            android:name="com.clinic.appointmentbooking.view.PatientDetailsActivity"
+            android:name="com.clinic.appointmentBooking.view.PatientDetailsActivity"
             android:exported="false" />
+        <activity
+            android:name="com.clinic.appointmentBooking.view.PatientListActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.clinic.appointmentBooking.view.EditPatientActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- FileProvider for sharing generated PDF reports -->
         <provider

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.clinic.appointmentbooking.app-mergeDebugResources-45:/values-hdpi-v4/values-hdpi-v4.xml",
+            "outputFile": "com.clinic.appointmentBooking.app-mergeDebugResources-44:/values-hdpi-v4/values-hdpi-v4.xml",
             "map": [
                 {
-                    "source": "/Users/rohan/.gradle/caches/9.3.1/transforms/05a8175b5cdbccb396cacaa622e0912a/transformed/appcompat-1.6.1/res/values-hdpi-v4/values-hdpi-v4.xml",
+                    "source": "/Users/rohan/.gradle/caches/9.3.1/transforms/876322290a144e89b2e30086fb026cd0/transformed/appcompat-1.6.1/res/values-hdpi-v4/values-hdpi-v4.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

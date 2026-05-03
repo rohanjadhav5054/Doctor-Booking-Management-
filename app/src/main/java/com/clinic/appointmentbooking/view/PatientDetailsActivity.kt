@@ -1,11 +1,11 @@
-package com.clinic.appointmentbooking.view
+package com.clinic.appointmentBooking.view
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.clinic.appointmentbooking.R
-import com.clinic.appointmentbooking.databinding.ActivityPatientDetailsBinding
+import com.clinic.appointmentBooking.R
+import com.clinic.appointmentBooking.databinding.ActivityPatientDetailsBinding
 
 class PatientDetailsActivity : AppCompatActivity() {
 

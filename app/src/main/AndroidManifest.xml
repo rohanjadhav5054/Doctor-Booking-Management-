@@ -58,6 +58,15 @@
             android:name=".view.PatientDetailsActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".view.PatientListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.EditPatientActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- FileProvider for sharing generated PDF reports -->
         <provider
             android:name="androidx.core.content.FileProvider"

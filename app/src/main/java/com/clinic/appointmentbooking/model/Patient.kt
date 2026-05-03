@@ -1,4 +1,4 @@
-package com.clinic.appointmentbooking.model
+package com.clinic.appointmentBooking.model
 
 data class Patient(
     val id: String = "",

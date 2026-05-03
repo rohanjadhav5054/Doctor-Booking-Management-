@@ -1,12 +1,12 @@
-package com.clinic.appointmentbooking.adapter
+package com.clinic.appointmentBooking.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.clinic.appointmentbooking.databinding.ItemPatientSearchBinding
-import com.clinic.appointmentbooking.model.Patient
+import com.clinic.appointmentBooking.databinding.ItemPatientSearchBinding
+import com.clinic.appointmentBooking.model.Patient
 
 class PatientSearchAdapter(
     private val onPatientSelected: (Patient) -> Unit

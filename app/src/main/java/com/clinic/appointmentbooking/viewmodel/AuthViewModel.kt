@@ -1,11 +1,11 @@
-package com.clinic.appointmentbooking.viewmodel
+package com.clinic.appointmentBooking.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.clinic.appointmentbooking.repository.FirebaseRepository
-import com.clinic.appointmentbooking.util.Resource
+import com.clinic.appointmentBooking.repository.FirebaseRepository
+import com.clinic.appointmentBooking.util.Resource
 import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {

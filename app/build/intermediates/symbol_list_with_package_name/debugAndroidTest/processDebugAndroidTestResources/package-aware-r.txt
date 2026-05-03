@@ -1,3 +1,0 @@
-com.clinic.appointmentbooking.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme

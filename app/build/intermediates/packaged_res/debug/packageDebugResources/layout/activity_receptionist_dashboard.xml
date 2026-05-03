@@ -19,9 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/primary"
-            app:title="ClinicBook"
-            app:titleTextColor="@color/white"
-            app:menu="@menu/menu_receptionist_toolbar" />
+            app:title="Bhagirati Hospital"
+            app:titleTextColor="@color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -153,12 +152,76 @@
                     android:textColor="@color/text_hint"
                     android:layout_marginBottom="12dp" />
 
-                <!-- Stat cards row -->
+                <!-- Stats row: Appointments + Patients side by side -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="28dp">
+                    android:layout_marginBottom="10dp">
+
+                    <!-- Total Patients stat -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="@color/divider"
+                        app:cardBackgroundColor="@color/white">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:paddingVertical="18dp"
+                            android:paddingHorizontal="8dp">
+
+                            <FrameLayout
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginBottom="8dp">
+                                <View
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:background="@drawable/bg_action_circle_blue" />
+                                <ImageView
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_person"
+                                    android:tint="@color/primary"
+                                    android:contentDescription="Total Patients" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tvTotalPatients"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="26sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/primary" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Patients"
+                                android:textSize="11sp"
+                                android:textColor="@color/text_hint"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Appointment stats (existing 3 cards nested in a vertical) -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
 
                     <!-- Total -->
                     <com.google.android.material.card.MaterialCardView
@@ -327,7 +390,11 @@
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
+                    </LinearLayout>
+                    <!-- end appointment stats inner row -->
+
                 </LinearLayout>
+                <!-- end stats row -->
 
                 <!-- Section label: QUICK ACTIONS -->
                 <TextView
@@ -340,12 +407,13 @@
                     android:textColor="@color/text_hint"
                     android:layout_marginBottom="12dp" />
 
-                <!-- Quick action cards row -->
+                <!-- Quick action cards row — 4 cards -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="3">
+                    android:layout_marginBottom="28dp"
+                    android:weightSum="4">
 
                     <!-- Add Patient -->
                     <com.google.android.material.card.MaterialCardView
@@ -453,6 +521,7 @@
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
                         android:clickable="true"
                         android:focusable="true"
                         app:cardCornerRadius="16dp"
@@ -489,6 +558,55 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="View Appts."
+                                android:textSize="11sp"
+                                android:textColor="@color/text_primary"
+                                android:gravity="center"
+                                android:layout_marginTop="8dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- View Patients -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardViewPatients"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="@color/divider"
+                        app:cardBackgroundColor="@color/white"
+                        app:rippleColor="@color/primary_light">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="12dp">
+
+                            <FrameLayout
+                                android:layout_width="40dp"
+                                android:layout_height="40dp">
+                                <View
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:background="@drawable/bg_action_circle_blue" />
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_person"
+                                    android:tint="@color/primary"
+                                    android:contentDescription="View Patients" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Patients"
                                 android:textSize="11sp"
                                 android:textColor="@color/text_primary"
                                 android:gravity="center"

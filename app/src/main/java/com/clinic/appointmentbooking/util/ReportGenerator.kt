@@ -1,4 +1,4 @@
-package com.clinic.appointmentbooking.util
+package com.clinic.appointmentBooking.util
 
 import android.content.Context
 import android.graphics.Canvas
@@ -10,7 +10,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.content.ContentValues
-import com.clinic.appointmentbooking.model.Appointment
+import com.clinic.appointmentBooking.model.Appointment
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -371,7 +371,7 @@ object ReportGenerator {
     /** Draws a footer with page number. */
     private fun drawFooter(canvas: Canvas, pageNum: Int) {
         val paint = regularPaint(8f, COLOR_TEXT_HINT)
-        val text  = "Page $pageNum  •  ClinicBook — Bhagirati Orthopedic Hospital"
+        val text  = "Page $pageNum  •  Bhagirati Hospital"
         val x     = (PAGE_WIDTH - paint.measureText(text)) / 2f
         canvas.drawLine(MARGIN, PAGE_HEIGHT - 36f, PAGE_WIDTH - MARGIN, PAGE_HEIGHT - 36f,
             fillPaint(COLOR_DIVIDER).also { it.strokeWidth = 1f; it.style = Paint.Style.STROKE })

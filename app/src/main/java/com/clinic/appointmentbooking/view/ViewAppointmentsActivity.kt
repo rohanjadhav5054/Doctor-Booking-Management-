@@ -1,4 +1,4 @@
-package com.clinic.appointmentbooking.view
+package com.clinic.appointmentBooking.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.clinic.appointmentbooking.adapter.ReceptionistAppointmentAdapter
-import com.clinic.appointmentbooking.databinding.ActivityViewAppointmentsBinding
-import com.clinic.appointmentbooking.util.Resource
-import com.clinic.appointmentbooking.viewmodel.AppointmentViewModel
+import com.clinic.appointmentBooking.adapter.ReceptionistAppointmentAdapter
+import com.clinic.appointmentBooking.databinding.ActivityViewAppointmentsBinding
+import com.clinic.appointmentBooking.util.Resource
+import com.clinic.appointmentBooking.viewmodel.AppointmentViewModel
 
 class ViewAppointmentsActivity : AppCompatActivity() {
 

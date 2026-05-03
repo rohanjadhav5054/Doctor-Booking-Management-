@@ -1,11 +1,11 @@
-package com.clinic.appointmentbooking.view
+package com.clinic.appointmentBooking.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.clinic.appointmentbooking.databinding.ActivitySplashBinding
+import com.clinic.appointmentBooking.databinding.ActivitySplashBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class SplashActivity : AppCompatActivity() {

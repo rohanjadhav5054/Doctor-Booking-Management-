@@ -1,4 +1,4 @@
-package com.clinic.appointmentbooking.adapter
+package com.clinic.appointmentBooking.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.clinic.appointmentbooking.R
-import com.clinic.appointmentbooking.databinding.ItemAppointmentReceptionistBinding
-import com.clinic.appointmentbooking.model.Appointment
+import com.clinic.appointmentBooking.R
+import com.clinic.appointmentBooking.databinding.ItemAppointmentReceptionistBinding
+import com.clinic.appointmentBooking.model.Appointment
 import com.google.android.material.chip.Chip
 
 class ReceptionistAppointmentAdapter(

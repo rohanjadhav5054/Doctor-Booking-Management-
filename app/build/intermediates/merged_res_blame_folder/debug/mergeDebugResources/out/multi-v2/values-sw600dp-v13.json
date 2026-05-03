@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.clinic.appointmentbooking.app-mergeDebugResources-45:/values-sw600dp-v13/values-sw600dp-v13.xml",
+            "outputFile": "com.clinic.appointmentBooking.app-mergeDebugResources-44:/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/rohan/.gradle/caches/9.3.1/transforms/05a8175b5cdbccb396cacaa622e0912a/transformed/appcompat-1.6.1/res/values-sw600dp-v13/values-sw600dp-v13.xml",
+                    "source": "/Users/rohan/.gradle/caches/9.3.1/transforms/876322290a144e89b2e30086fb026cd0/transformed/appcompat-1.6.1/res/values-sw600dp-v13/values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/rohan/.gradle/caches/9.3.1/transforms/1f976aa120ee886cc9d313856e04c447/transformed/material-1.11.0/res/values-sw600dp-v13/values-sw600dp-v13.xml",
+                    "source": "/Users/rohan/.gradle/caches/9.3.1/transforms/15f3156e341c7be8d34541dd91909ba7/transformed/material-1.11.0/res/values-sw600dp-v13/values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",

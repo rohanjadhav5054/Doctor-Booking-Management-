@@ -171,18 +171,50 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Doctor"
+                        android:text="DOCTOR"
                         android:textColor="@color/text_hint"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.08"
                         android:layout_marginBottom="8dp" />
 
-                    <Spinner
-                        android:id="@+id/spinnerDoctor"
+                    <!-- Fixed doctor display — only Dr. Nikhilchandra Mahajan -->
+                    <LinearLayout
+                        android:id="@+id/layoutDoctorFixed"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:background="@drawable/bg_spinner"
-                        android:paddingHorizontal="12dp"
-                        android:layout_marginBottom="20dp" />
+                        android:paddingHorizontal="14dp"
+                        android:layout_marginBottom="20dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_doctor"
+                            android:tint="@color/primary"
+                            android:contentDescription="Doctor" />
+
+                        <TextView
+                            android:id="@+id/tvDoctorFixed"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/doctor_name"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_check"
+                            android:tint="@color/success"
+                            android:contentDescription="Verified" />
+
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"

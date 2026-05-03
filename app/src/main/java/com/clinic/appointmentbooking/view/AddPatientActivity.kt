@@ -1,13 +1,13 @@
-package com.clinic.appointmentbooking.view
+package com.clinic.appointmentBooking.view
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.clinic.appointmentbooking.databinding.ActivityAddPatientBinding
-import com.clinic.appointmentbooking.util.Resource
-import com.clinic.appointmentbooking.viewmodel.AppointmentViewModel
+import com.clinic.appointmentBooking.databinding.ActivityAddPatientBinding
+import com.clinic.appointmentBooking.util.Resource
+import com.clinic.appointmentBooking.viewmodel.AppointmentViewModel
 
 class AddPatientActivity : AppCompatActivity() {
 

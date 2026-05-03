@@ -1,4 +1,4 @@
-package com.clinic.appointmentbooking.view
+package com.clinic.appointmentBooking.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,11 +6,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.clinic.appointmentbooking.R
-import com.clinic.appointmentbooking.databinding.ActivityReceptionistDashboardBinding
-import com.clinic.appointmentbooking.util.Resource
-import com.clinic.appointmentbooking.viewmodel.AppointmentViewModel
-import com.clinic.appointmentbooking.viewmodel.AuthViewModel
+import com.clinic.appointmentBooking.R
+import com.clinic.appointmentBooking.databinding.ActivityReceptionistDashboardBinding
+import com.clinic.appointmentBooking.util.Resource
+import com.clinic.appointmentBooking.viewmodel.AppointmentViewModel
+import com.clinic.appointmentBooking.viewmodel.AuthViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ReceptionistDashboardActivity : AppCompatActivity() {
@@ -29,15 +29,16 @@ class ReceptionistDashboardActivity : AppCompatActivity() {
         setupCardClicks()
         setupObservers()
         appointmentViewModel.startListeningToAppointments()
+        appointmentViewModel.startListeningToPatients()
+
     }
 
     // ── Toolbar overflow menu ────────────────────────────────────────────────
-
+    
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_receptionist_toolbar, menu)
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_add_patient -> {
@@ -50,6 +51,10 @@ class ReceptionistDashboardActivity : AppCompatActivity() {
             }
             R.id.action_view_appointments -> {
                 startActivity(Intent(this, ViewAppointmentsActivity::class.java))
+                true
+            }
+            R.id.action_view_patients -> {
+                startActivity(Intent(this, PatientListActivity::class.java))
                 true
             }
             R.id.action_logout -> {
@@ -72,6 +77,9 @@ class ReceptionistDashboardActivity : AppCompatActivity() {
         binding.cardViewAppointments.setOnClickListener {
             startActivity(Intent(this, ViewAppointmentsActivity::class.java))
         }
+        binding.cardViewPatients.setOnClickListener {
+            startActivity(Intent(this, PatientListActivity::class.java))
+        }
     }
 
     // ── Stats observers ──────────────────────────────────────────────────────
@@ -86,6 +94,10 @@ class ReceptionistDashboardActivity : AppCompatActivity() {
                 binding.tvPendingCount.text      = pending.toString()
                 binding.tvCompletedCount.text    = completed.toString()
             }
+        }
+
+        appointmentViewModel.patientCount.observe(this) { count ->
+            binding.tvTotalPatients.text = count.toString()
         }
     }
 
